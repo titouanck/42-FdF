@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:20:35 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/28 18:16:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/11/28 19:07:14 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(void)
 	void	*win_ptr;
 
 	mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx 42");
+	win_ptr = mlx_new_window(mlx_ptr, 2500, 1000, "mlx 42");
 	mlx_loop(mlx_ptr);
 	return (0);
 }

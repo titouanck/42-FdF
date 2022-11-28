@@ -7,18 +7,21 @@ EXEC = FdF
 
 CC = gcc
 
-MLXPATH = -I ./minilibx-linux -L minilibx-linux -lmlx -lXext -lX11
+LIBFTPATH = -I libft -L libft -lft
+MLXPATH = -I minilibx-linux -L minilibx-linux -lmlx -lXext -lX11
+
+LIBS = ${LIBFTPATH} ${MLXPATH}
 
 CFLAGS = # -Wall -Werror -Wextra
 
 .c.o:
-		${CC} ${CFLAGS} ${MLXPATH} -MMD -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} ${LIBS} -MMD -c $< -o ${<:.c=.o}
 
 ${EXEC}:	${OBJS} 
 		clear
 		+$(MAKE) -C minilibx-linux
 		+$(MAKE) -C libft
-		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${MLXPATH}
+		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${LIBS}
 
 all: 	${EXEC}
 
