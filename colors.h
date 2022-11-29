@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:40:55 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/29 19:31:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/11/29 22:56:44 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ typedef struct s_color
 	unsigned char	blue;
 }					t_color;
 
-int		rgb(unsigned char red, unsigned char green, unsigned char blue);
-t_color	*rrgb(int color);
+int				rgb(unsigned char red, unsigned char green, unsigned char blue);
+unsigned char	red_color(int color);
+unsigned char	green_color(int color);
+unsigned char	blue_color(int color);
+t_color			*rrgb(int color);
 
 #endif

@@ -34,9 +34,13 @@ macos:
 		+$(MAKE) -C minilibx-macos
 		+$(MAKE) -C libft
 		gcc -o ${EXEC} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
-		./FdF
+		rm -f ${DEPS}
+# DEPS DEPS DEPS DEPS DEPS
 
 run:	all
+		./FdF 
+
+runm:	macos
 		./FdF 
 
 clean:	
