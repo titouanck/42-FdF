@@ -8,7 +8,6 @@ EXEC = FdF
 CC = gcc
 
 LIBFTPATH = -I libft -L libft -lft
-
 MLXPATH = -I minilibx-linux -L minilibx-linux -lmlx -lXext -lX11
 MLXPATH_MACOS = -I minilibx-macos -L minilibx-macos -lmlx -framework OpenGL -framework AppKit
 
@@ -20,8 +19,6 @@ CFLAGS = # -Wall -Werror -Wextra
 .c.o:
 		${CC} ${CFLAGS} ${LIBS} -MMD -c $< -o ${<:.c=.o}
 
-OBJS_MACOS = ${CC} ${CFLAGS} ${LIBS_MACOS} -MMD -c $< -o ${<:.c=.o}
-
 ${EXEC}:	${OBJS} 
 		clear
 		+$(MAKE) -C minilibx-linux
@@ -30,11 +27,12 @@ ${EXEC}:	${OBJS}
 
 all:	${EXEC}
 
-macos:	${OBJS_MACOS} 
+macos:	 
 		clear
 		+$(MAKE) -C minilibx-macos
 		+$(MAKE) -C libft
-		gcc -o ${EXEC} ${CFLAGS} ${OBJS_MACOS} ${LIBS_MACOS}
+		gcc -o ${EXEC} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
+		./FdF
 
 run:	all
 		./FdF 
