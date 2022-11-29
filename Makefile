@@ -24,6 +24,8 @@ ${EXEC}:	${OBJS}
 		+$(MAKE) -C minilibx-linux
 		+$(MAKE) -C libft
 		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${LIBS}
+		rm -f ${DEPS}
+# DEPS DEPS DEPS DEPS DEPS
 
 all:	${EXEC}
 
@@ -51,4 +53,4 @@ re:	fclean all
 
 -include ${DEPS}
 
-.PHONY: all clean fclean re linux macos
+.PHONY: all clean fclean re macos
