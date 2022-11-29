@@ -45,7 +45,7 @@ fclean:	clean;
 		+$(MAKE) -C libft fclean
 		+$(MAKE) -C minilibx-linux clean
 		+$(MAKE) -C minilibx-macos clean
-		rm -f ${AA}
+		rm -f ${EXEC}
 
 re:	fclean all
 
