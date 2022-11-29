@@ -40,7 +40,7 @@ macos:
 run:	all
 		./FdF 
 
-runm:	macos
+macos_run:	macos
 		./FdF 
 
 clean:	
@@ -54,6 +54,8 @@ fclean:	clean;
 		rm -f ${EXEC}
 
 re:	fclean all
+
+macos_re: fclean macos
 
 -include ${DEPS}
 

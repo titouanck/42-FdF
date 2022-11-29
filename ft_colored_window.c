@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 15:20:35 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/29 23:13:42 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/11/29 23:25:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	ft_colored_window(int w, int h)
 	mlx_loop(mlx_ptr);
 }
 
-int	main(int argc, char **argv)
-{
-	if (argc != 3)
-		return (ft_printf("Imbecile", 0));
-	ft_colored_window(ft_atoi(argv[1]), ft_atoi(argv[2]));
-	return (0);
-}
+// int	main(int argc, char **argv)
+// {
+// 	if (argc != 3)
+// 		return (ft_printf("Imbecile", 0));
+// 	ft_colored_window(ft_atoi(argv[1]), ft_atoi(argv[2]));
+// 	return (0);
+// }
