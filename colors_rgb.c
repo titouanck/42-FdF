@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   colors_rgb.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:08:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/29 19:32:18 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/11/30 02:31:06 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "colors.h"
 
 int	rgb(unsigned char red, unsigned char green, unsigned char blue)
 {
@@ -61,17 +61,4 @@ unsigned char	blue_color(int color)
 		color -= 256;
 	blue = color;
 	return (blue);
-}
-
-t_color	*rrgb(int color)
-{
-	t_color	*elem;
-
-	elem = malloc(sizeof(t_color));
-	if (!elem)
-		return (NULL);
-	elem->red = red_color(color);
-	elem->green = green_color(color);
-	elem->blue = blue_color(color);
-	return (elem);
 }
