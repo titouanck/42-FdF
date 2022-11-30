@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_elems.c                                     :+:      :+:    :+:   */
+/*   fdf_lstmap_new.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 02:24:16 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 18:09:16 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/11/30 18:45:23 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/11/30 22:18:09 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "colors.h"
+#include "fdf.h"
 
-t_color	*lstcolor_new(int color)
+t_map	*fdf_lstmap_new(void *mlx_ptr, int fd)
 {
-	t_color	*elem;
+	t_map	*elem;
 
-	elem = malloc(sizeof(t_color));
+	elem = malloc(sizeof(t_map));
 	if (!elem)
 		return (NULL);
-	elem->val = color;
-	elem->r = red_color(color);
-	elem->g = green_color(color);
-	elem->b = blue_color(color);
+	fdf_mapsize(fd, &(elem->width), &(elem->height));
+	if (elem->width <= 0 || elem->height <= 0)
+		return (free(elem), NULL);
+	elem->img = mlx_new_image(mlx_ptr, elem->width, elem->height);
 	return (elem);
-}
-
-int	lstcolor_change(t_color *elem, int color)
-{
-	if (!elem)
-		return (0);
-	elem->val = color;
-	elem->r = red_color(color);
-	elem->g = green_color(color);
-	elem->b = blue_color(color);
-	return (1);
 }

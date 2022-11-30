@@ -15,17 +15,17 @@ LIBS = ${LIBFTPATH} ${MLXPATH}
 LIBS_MACOS = ${LIBFTPATH} ${MLXPATH_MACOS}
 
 CFLAGS = # -Wall -Werror -Wextra
+# (CFLAGS : Only absent during program design)
 
 .c.o:
 		${CC} ${CFLAGS} ${LIBS} -MMD -c $< -o ${<:.c=.o}
 
 ${EXEC}:	${OBJS} 
-		clear
 		+$(MAKE) -C minilibx-linux
 		+$(MAKE) -C libft
 		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${LIBS}
-		rm -f ${DEPS}
-# DEPS DEPS DEPS DEPS DEPS
+		rm -f ${OBJS} ${DEPS}
+# (last line : Only present during program design)
 
 all:	${EXEC}
 
@@ -34,13 +34,15 @@ macos:
 		+$(MAKE) -C minilibx-macos
 		+$(MAKE) -C libft
 		gcc -o ${EXEC} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
-		rm -f ${DEPS}
-# DEPS DEPS DEPS DEPS DEPS
+		rm -f ${OBJS} ${DEPS}
+# (last line : Only present during program design)
 
 run:	all
+		clear
 		./FdF 
 
 macos_run:	macos
+		clear
 		./FdF 
 
 clean:	
@@ -56,6 +58,9 @@ fclean:	clean;
 re:	fclean all
 
 macos_re: fclean macos
+
+norminette:
+		norminette *.c *.h
 
 -include ${DEPS}
 

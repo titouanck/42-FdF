@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:40:55 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 02:31:20 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:09:28 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 typedef struct s_color
 {
-	int				value;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
+	int				val;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }					t_color;
 
 // RGB
@@ -39,7 +39,7 @@ unsigned char	green_color(int color);
 unsigned char	blue_color(int color);
 
 // ELEMS
-t_color			*new_tcolor(int color);
-int				change_tcolor(t_color *elem, int color);
+t_color			*lstcolor_new(int color);
+int				lstcolor_change(t_color *elem, int color);
 
 #endif
