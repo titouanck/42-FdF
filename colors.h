@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 15:40:55 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 21:07:00 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 23:32:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ unsigned char	blue_color(int color);
 t_color			rrgb(int color);
 
 // ELEMS
-t_color			*lstcolor_new(int color);
-int				lstcolor_change(t_color *elem, int color);
+// t_color			*lstcolor_new(int color);
+// int				lstcolor_change(t_color *elem, int color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 22:46:23 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:38:24 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "colors.h"
 
 # ifndef SCALE
-#  define SCALE 60
+#  define SCALE 2
 # endif
 # define ERR_OPEN "FdF: failed to open file.\n"
 
@@ -49,6 +49,7 @@ void	fdf_mapfree(int **map);
 void	fdf_mapprint(t_map *map);
 void	fdf_maptoscreen(t_map *map, void *mlx_ptr);
 void	fdf_mapfindrange(t_map *map);
+int		*fdf_generatecolortab(void);
 
 /* fdf lstmap functions */
 t_map	*fdf_lstmap_new(void *mlx_ptr, int fd);

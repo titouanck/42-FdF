@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:14:15 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 21:10:54 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 00:51:30 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@ static void	fdf_fill_img(t_map *map, char *buffer)
 	int		x;
 	int		y;
 	char	*pixel;
-	int		color;
+	long	color;
+	int		*colortab;
 
+	colortab = fdf_generatecolortab();
 	y = -1;
 	while ((++y / SCALE) < map->height)
 	{
@@ -50,8 +52,8 @@ static void	fdf_fill_img(t_map *map, char *buffer)
 		while ((++x / SCALE) < map->width)
 		{
 			pixel = buffer + (map->size_line * y) + x * (map->bpp / 8);
-			color = (float)(map->map)[x / SCALE][y / SCALE] * 25.5;
-			color = rgb(color, color, color);
+			color = colortab[((long)map->range - (map->max - (map->map)[x / SCALE][y / SCALE])) * 510 / map->range];
+			// printf("min : %d | max : %d | range : %ld\n", map->min, map->max, map->range);
 			if (!fdf_fill_pixel(pixel, map->endian, color))
 				break ;
 		}

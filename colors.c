@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:08:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 22:53:18 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 23:32:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,42 +44,42 @@ t_color	rrgb(int color)
 	return (elem);
 }
 
-// unsigned char	red_color(int color)
-// {
-// 	int	red;
+unsigned char	red_color(int color)
+{
+	int	red;
 
-// 	red = 0;
-// 	while (color >= (256 * 256))
-// 	{
-// 		red++;
-// 		color -= (256 * 256);
-// 	}
-// 	return (red);
-// }
+	red = 0;
+	while (color >= (256 * 256))
+	{
+		red++;
+		color -= (256 * 256);
+	}
+	return (red);
+}
 
-// unsigned char	green_color(int color)
-// {
-// 	int	green;
+unsigned char	green_color(int color)
+{
+	int	green;
 
-// 	while (color >= (256 * 256))
-// 		color -= (256 * 256);
-// 	green = 0;
-// 	while (color >= 256)
-// 	{
-// 		green++;
-// 		color -= 256;
-// 	}
-// 	return (green);
-// }
+	while (color >= (256 * 256))
+		color -= (256 * 256);
+	green = 0;
+	while (color >= 256)
+	{
+		green++;
+		color -= 256;
+	}
+	return (green);
+}
 
-// unsigned char	blue_color(int color)
-// {
-// 	int	blue;
+unsigned char	blue_color(int color)
+{
+	int	blue;
 
-// 	while (color >= (256 * 256))
-// 		color -= (256 * 256);
-// 	while (color >= 256)
-// 		color -= 256;
-// 	blue = color;
-// 	return (blue);
-// }
+	while (color >= (256 * 256))
+		color -= (256 * 256);
+	while (color >= 256)
+		color -= 256;
+	blue = color;
+	return (blue);
+}

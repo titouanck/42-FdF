@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_mapfindrange.c                                 :+:      :+:    :+:   */
+/*   fdf_generatecolortab.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/01 22:40:40 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 00:37:02 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/01 23:31:17 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/01 23:32:00 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_mapfindrange(t_map *map)
+int	*fdf_generatecolortab(void)
 {
-	size_t	x;
-	size_t	y;
-	int		current;
-
-	map->min = 2147483647;
-	map->max = -2147483648;
-	y = -1;
-	while (++y < map->height)
+	int		*tab;
+	int		color;
+	size_t	i;
+	
+	tab = malloc(sizeof(int) * (255 * 2 + 1));
+	if (!tab)
+		return (NULL);
+	color = 0xffffff;
+	i = 0;
+	while (1)
 	{
-		x = -1;
-		while (++x < map->width)
+		tab[i] = color;
+		if (i >= 510)
+			break ;
+		if (color > 0xffff00)
+			color -= 0x000001;
+		else
 		{
-			current = (map->map)[x][y];
-			if (current < map->min)
-				map->min = current;
-			if (current > map->max)
-				map->max = current;
+			color += 0x000001;
+			color -= 0x000100;
 		}
+		i++;
 	}
-	map->range = (long) map->max - (long) map->min;
+	return (tab);
 }
