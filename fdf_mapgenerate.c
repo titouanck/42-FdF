@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 19:23:56 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:23:48 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	**fdf_mapgenerate(int fd, int width, int height)
 	i = 0;
 	while (i < width)
 	{
-		map[i] = ft_calloc(sizeof(int), height);
+		map[i] = ft_calloc(sizeof(int), height + 1);
 		if (!map[i])
 			fdf_mapfree(map);
 		i++;

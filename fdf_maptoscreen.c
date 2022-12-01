@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:14:15 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 15:21:07 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 21:10:54 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 static int	fdf_fill_pixel(char *pixel, int endian, int color)
 {
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
+	t_color	tcolor;
 
-	rrgb(color, &red, &green, &blue);
+	tcolor = rrgb(color);
 	if (endian == 1)
 	{
 		*(pixel + 0) = 0;
-		*(pixel + 1) = red;
-		*(pixel + 2) = green;
-		*(pixel + 3) = blue;
+		*(pixel + 1) = tcolor.r;
+		*(pixel + 2) = tcolor.g;
+		*(pixel + 3) = tcolor.b;
 	}
 	else if (endian == 0)
 	{
 		*(pixel + 3) = 0;
-		*(pixel + 2) = red;
-		*(pixel + 1) = green;
-		*(pixel + 0) = blue;
+		*(pixel + 2) = tcolor.r;
+		*(pixel + 1) = tcolor.g;
+		*(pixel + 0) = tcolor.b;
 	}
 	else
 		return (0);

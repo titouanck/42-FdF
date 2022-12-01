@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_elems.c                                     :+:      :+:    :+:   */
+/*   fdf_mapfindrange.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 02:24:16 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 15:12:58 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/01 22:40:40 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/01 22:47:44 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "colors.h"
+#include "fdf.h"
 
-t_color	*lstcolor_new(int color)
+void	fdf_mapfindrange(t_map *map)
 {
-	t_color	*elem;
+	size_t	x;
+	size_t	y;
+	int		current;
 
-	elem = malloc(sizeof(t_color));
-	if (!elem)
-		return (NULL);
-	elem->val = color;
-	rrgb(color, &(elem->r), &(elem->g), &(elem->b));
-	return (elem);
-}
-
-int	lstcolor_change(t_color *elem, int color)
-{
-	if (!elem)
-		return (0);
-	elem->val = color;
-	rrgb(color, &(elem->r), &(elem->g), &(elem->b));
-	return (1);
+	map->min = 0;
+	map->max = 0;
+	y = -1;
+	while (++y < map->height)
+	{
+		x = -1;
+		while (++x < map->width)
+		{
+			current = (map->map)[x][y];
+			if (current < map->min)
+				map->min = current;
+			if (current > map->max)
+				map->max = current;
+		}
+	}
+	map->range = (long) map->max - (long) map->min + 1;
 }

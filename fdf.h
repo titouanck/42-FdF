@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 19:05:42 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 22:46:23 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_map
 	int		**map;
 	int		min;
 	int		max;
+	long	range;
 }			t_map;
 
 /* Generic utility functions */
@@ -47,6 +48,7 @@ int		**fdf_mapgenerate(int fd, int width, int height);
 void	fdf_mapfree(int **map);
 void	fdf_mapprint(t_map *map);
 void	fdf_maptoscreen(t_map *map, void *mlx_ptr);
+void	fdf_mapfindrange(t_map *map);
 
 /* fdf lstmap functions */
 t_map	*fdf_lstmap_new(void *mlx_ptr, int fd);
