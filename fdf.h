@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 00:59:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 02:27:35 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@
 
 typedef struct s_map
 {
+	void	*img;
 	int		width;
 	int		height;
+	char	*buf;
 	int		**map;
-	void	*img;
 	int		bpp;
 	int		size_line;
 	int		endian;

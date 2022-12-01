@@ -33,13 +33,13 @@ macos:
 		clear
 		+$(MAKE) -C minilibx-macos
 		+$(MAKE) -C libft
-		gcc -o ${EXEC} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
+		gcc  -o ${EXEC} -fsanitize=address -g3 ${CFLAGS} ${SRCS} ${LIBS_MACOS}
 		rm -f ${OBJS} ${DEPS}
 # (last line : Only present during program design)
 
 run:	all
 		clear
-		./FdF 
+		valgrind ./FdF 
 
 macos_run:	macos
 		clear
