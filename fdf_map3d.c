@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:43:37 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 23:21:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 01:14:16 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	fdf_maptoscreen(t_map *map, void *mlx_ptr)
 	void	*win_ptr;
 	int		x;
 	int		y;
+	int		color;
 
-	win_ptr = mlx_new_window(mlx_ptr, (map->width * 42), (map->height * 42), "MAP 42");
+	win_ptr = mlx_new_window(mlx_ptr, (map->width * SCALE), (map->height * SCALE), "FdF");
 	y = 0;
-	while ((y / 42) < map->height)
+	while ((y / SCALE) < map->height)
 	{
 		x = 0;
-		while ((x / 42) < map->width)
+		while ((x / SCALE) < map->width)
 		{
-			if ((map->map)[(x / 42)][(y / 42)] > 0)
-				mlx_pixel_put(mlx_ptr, win_ptr, x, y, WHITE);
-			else
-				mlx_pixel_put(mlx_ptr, win_ptr, x, y, BLACK);
+			color = (map->map)[x / SCALE][y / SCALE];
+			color = rgb((float)color * 25.5, (float)color * 25.5, (float)color * 25.5);
+			mlx_pixel_put(mlx_ptr, win_ptr, x, y, color);
 			x++;
 		}
 		y++;

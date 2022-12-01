@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:55:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 22:54:47 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:57:03 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	main(int argc, char **argv)
 	if (argc == 1)
 	{		
 		ft_printf("FdF: missing file operand\n");
-		ft_printf("Usage: ./FdF [FILE] [FILE] ...\n");
+		ft_printf("Usage: ./FdF [FILE]\n");
+		// ft_printf("Usage: ./FdF [FILE] [FILE] ...\n");
 		return (1);
 	}
 	i = 1;

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 22:52:00 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 00:59:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <libft.h>
 # include "colors.h"
 
+# ifndef SCALE
+#  define SCALE 42
+# endif
 # define ERR_OPEN "FdF: failed to open file.\n"
 
 typedef struct s_map
