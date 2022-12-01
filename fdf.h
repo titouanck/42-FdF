@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 15:15:16 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:05:42 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ typedef struct s_map
 	int		width;
 	int		height;
 	char	*buf;
-	int		**map;
 	int		bpp;
 	int		size_line;
 	int		endian;
+	int		**map;
+	int		min;
+	int		max;
 }			t_map;
 
 /* Generic utility functions */

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:53:02 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 23:00:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:24:17 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@ void	fdf_mapfree(int **map)
 	i = 0;
 	while (map[i])
 		free(map[i++]);
+	free(map);
 }

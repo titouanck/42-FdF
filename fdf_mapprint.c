@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 22:50:49 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 15:06:02 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:20:06 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	fdf_mapprint(t_map *map)
 		x = 0;
 		while (x < map->width)
 		{
-			printf("%-3d", (map->map)[x][y]);
+			ft_printf(" %d ", (map->map)[x][y]);
 			x++;
 		}
 		printf("\n");

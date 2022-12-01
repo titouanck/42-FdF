@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 17:14:29 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 21:19:45 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 19:23:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void	fdf_mapsize(int fd, int *width, int *height)
 		if (pixels > *width)
 			*width = pixels;
 		(*height)++;
+		free(line);
 	}
 }
