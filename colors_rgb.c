@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:08:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 02:31:06 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 15:17:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,24 @@ int	rgb(unsigned char red, unsigned char green, unsigned char blue)
 	color += (green * 256);
 	color += (red * 256 * 256);
 	return (color);
+}
+
+void	rrgb(int cl, char *r, char *g, char *b)
+{
+	*r = 0;
+	*g = 0;
+	*b = 0;
+	while (cl >= (256 * 256))
+	{
+		(*r)++;
+		cl -= (256 * 256);
+	}
+	while (cl >= 256)
+	{
+		(*g)++;
+		cl -= 256;
+	}
+	*b = cl;
 }
 
 unsigned char	red_color(int color)

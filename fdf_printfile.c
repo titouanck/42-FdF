@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:16:47 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/11/30 22:53:23 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/01 12:03:28 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	fdf_printfile(char *file)
 		ft_printf(line);
 		free(line);
 	}
-	ft_printf("\n");
+	ft_printf("\n\n");
 	return (close(fd), 1);
 }
