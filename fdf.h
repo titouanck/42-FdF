@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 10:49:31 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:21:01 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,16 @@
 # include <libft.h>
 # include "colors.h"
 
-# ifndef SCALE
-#  define SCALE 1
+# ifndef SCREEN_POURCENT
+#  define SCREEN_POURCENT 1
+# endif
+
+# ifndef SCREEN_W
+#  define SCREEN_W 2560
+# endif
+
+# ifndef SCREEN_H
+#  define SCREEN_H 1400
 # endif
 
 # define ERR_OPEN "FdF: failed to open file.\n"
@@ -52,6 +60,7 @@ void	fdf_mapprint(t_map *map);
 void	fdf_maptoscreen(t_map *map, void *mlx_ptr);
 void	fdf_mapfindrange(t_map *map);
 int		*fdf_generatecolortab(void);
+float	fdf_defscale(int width, int height);
 
 /* fdf lstmap functions */
 t_map	*fdf_lstmap_new(void *mlx_ptr, int fd);

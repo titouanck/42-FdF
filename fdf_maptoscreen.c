@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:14:15 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 11:02:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 12:13:47 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	fdf_fill_pixel(char *pixel, int endian, int color)
 	return (1);
 }
 
-static void	fdf_fill_img(t_map *map, char *buffer)
+static void	fdf_fill_img(t_map *map, char *buffer, float scale)
 {
 	int		x;
 	int		y;
@@ -46,14 +46,16 @@ static void	fdf_fill_img(t_map *map, char *buffer)
 
 	colortab = fdf_generatecolortab();
 	y = -1;
-	while ((++y / SCALE) < map->height)
+	while ((++y / scale) < map->height)
 	{
 		x = -1;
-		while ((++x / SCALE) < map->width)
+		while ((++x / scale) < map->width)
 		{
 			pixel = buffer + (map->size_line * y) + x * (map->bpp / 8);
-			color = colortab [((long)map->range - (map->max - \
-					(map->map)[x / SCALE][y / SCALE])) * 510 / map->range];
+			color = colortab [((long)map->range - (map->max - (map->map) \
+					[(size_t)((float)x / scale)] \
+					[(size_t)((float)y / scale)])) \
+					* 510 / map->range];
 			if (!fdf_fill_pixel(pixel, map->endian, color))
 				break ;
 		}
@@ -67,11 +69,12 @@ void	fdf_maptoscreen(t_map *map, void *mlx_ptr)
 	int		y;
 	char	*addr;
 	size_t	pixel;
+	float	scale;
 
-	win_ptr = mlx_new_window \
-			(mlx_ptr, (map->width * SCALE), (map->height * SCALE), "FdF");
+	scale = fdf_defscale(map->width, map->height);
+	win_ptr = mlx_new_window(mlx_ptr, SCREEN_W, SCREEN_H, "FdF");
 	pixel = (map->size_line * y) + x * (map->bpp / 8);
-	fdf_fill_img(map, map->buf);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, map->img, 0, 0);
+	fdf_fill_img(map, map->buf, scale);
+	mlx_put_image_to_window(mlx_ptr, win_ptr, map->img, (SCREEN_W / 2) - (map->width * scale / 2), (SCREEN_H / 2) - (map->height * scale / 2));
 	mlx_loop(mlx_ptr);
 }
