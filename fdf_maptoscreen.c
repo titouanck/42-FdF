@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:14:15 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 12:13:47 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:22:00 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,26 @@ static void	fdf_fill_img(t_map *map, char *buffer, float scale)
 
 	colortab = fdf_generatecolortab();
 	y = -1;
-	while ((++y / scale) < map->height)
+	while ((++y) / PX_RPR / scale < map->height)
 	{
 		x = -1;
-		while ((++x / scale) < map->width)
+		while ((++x) / PX_RPR / scale < map->width)
 		{
 			pixel = buffer + (map->size_line * y) + x * (map->bpp / 8);
 			color = colortab [((long)map->range - (map->max - (map->map) \
-					[(size_t)((float)x / scale)] \
-					[(size_t)((float)y / scale)])) \
+					[(size_t)(x / PX_RPR / scale)] \
+					[(size_t)(y / PX_RPR / scale)])) \
 					* 510 / map->range];
-			if (!fdf_fill_pixel(pixel, map->endian, color))
-				break ;
+			// (map->map) \
+			// 		[(size_t)((float)x / (float)PX_RPR / scale)] \
+			// 		[(size_t)((float)y / (float)PX_RPR / scale)] = 0;
+			// printf(">> [%lu] || [%lu] <<\n", (size_t)((float)x / (float)PX_RPR / scale), (size_t)((float)x / (float)PX_RPR / scale));
+			// printf("x = %d | y = %d | scale = %f ||| %f\n", x, y, scale, ((float)x / (float)PX_RPR / scale));
+			// printf("%lu\n", (size_t)((float)x / (float)PX_RPR / scale));
+			if ((int)((float)x / scale) % PX_RPR == 0 || (int)((float)y / scale) % PX_RPR == 0 || (int)((float)x / scale) % PX_RPR == PX_RPR - 1 || (int)((float)y / scale) % PX_RPR == PX_RPR - 1)
+				fdf_fill_pixel(pixel, map->endian, color);
+			// // if (!fdf_fill_pixel(pixel, map->endian, color))
+			// // 	break ;
 		}
 	}
 }
@@ -73,8 +81,8 @@ void	fdf_maptoscreen(t_map *map, void *mlx_ptr)
 
 	scale = fdf_defscale(map->width, map->height);
 	win_ptr = mlx_new_window(mlx_ptr, SCREEN_W, SCREEN_H, "FdF");
-	pixel = (map->size_line * y) + x * (map->bpp / 8);
+	// pixel = (map->size_line * y) + x * (map->bpp / 8);
 	fdf_fill_img(map, map->buf, scale);
-	mlx_put_image_to_window(mlx_ptr, win_ptr, map->img, (SCREEN_W / 2) - (map->width * scale / 2), (SCREEN_H / 2) - (map->height * scale / 2));
+	mlx_put_image_to_window(mlx_ptr, win_ptr, map->img, (SCREEN_W / 2) - (map->width * PX_RPR * scale / 2), (SCREEN_H / 2) - (map->height * PX_RPR * scale / 2));
 	mlx_loop(mlx_ptr);
 }

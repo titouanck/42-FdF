@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:45:23 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 12:15:18 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:32:36 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_map	*fdf_lstmap_new(void *mlx_ptr, int fd)
 		return (free(elem), NULL);
 	scale = fdf_defscale(elem->width, elem->height);
 	elem->img = mlx_new_image \
-			(mlx_ptr, elem->width * scale, elem->height * scale);
+			(mlx_ptr, elem->width * PX_RPR * scale, elem->height * PX_RPR * scale);
 	bpp = &(elem->bpp);
 	size_line = &(elem->size_line);
 	endian = &(elem->endian);

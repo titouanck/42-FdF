@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 12:21:01 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:25:10 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "colors.h"
 
 # ifndef SCREEN_POURCENT
-#  define SCREEN_POURCENT 1
+#  define SCREEN_POURCENT 0.9
 # endif
 
 # ifndef SCREEN_W
@@ -27,6 +27,10 @@
 
 # ifndef SCREEN_H
 #  define SCREEN_H 1400
+# endif
+
+# ifndef PX_RPR
+#  define PX_RPR 5
 # endif
 
 # define ERR_OPEN "FdF: failed to open file.\n"
