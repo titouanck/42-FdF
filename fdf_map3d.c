@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:43:37 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 22:47:36 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 01:12:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ int	fdf_map3d(char *file)
 	mlx_ptr = mlx_init();
 	if (fdf_map_fdoperations(file, mlx_ptr, &map))
 	{
-		fdf_mapprint(map);
+		// fdf_mapprint(map);
 		fdf_mapfindrange(map);
+		printf("Width: %d | Height : %d\n", map->width, map->height);
 		fdf_maptoscreen(map, mlx_ptr);
 	}
 	return (fdf_lstmap_free(mlx_ptr, map), 1);
