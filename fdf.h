@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 01:31:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 10:49:31 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@
 # ifndef SCALE
 #  define SCALE 1
 # endif
+
 # define ERR_OPEN "FdF: failed to open file.\n"
+# define ERR_FILE "FdF: map error.\n"
 
 typedef struct s_map
 {

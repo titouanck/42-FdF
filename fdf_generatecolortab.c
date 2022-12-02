@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:31:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/01 23:32:00 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:00:30 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	*fdf_generatecolortab(void)
 	int		*tab;
 	int		color;
 	size_t	i;
-	
+
 	tab = malloc(sizeof(int) * (255 * 2 + 1));
 	if (!tab)
 		return (NULL);

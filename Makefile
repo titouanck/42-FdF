@@ -23,7 +23,8 @@ CFLAGS = # -Wall -Werror -Wextra
 ${EXEC}:	${OBJS} 
 		+$(MAKE) -C minilibx-linux
 		+$(MAKE) -C libft
-		gcc -o ${EXEC} -fsanitize=address -g3 ${CFLAGS} ${OBJS} ${LIBS}
+#		# gcc -o ${EXEC} -fsanitize=address -g3 ${CFLAGS} ${OBJS} ${LIBS}
+		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${LIBS}
 		rm -f ${OBJS} ${DEPS}
 # (last line : Only present during program design)
 

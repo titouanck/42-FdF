@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 15:14:15 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 00:51:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/02 11:02:37 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	fdf_fill_img(t_map *map, char *buffer)
 		while ((++x / SCALE) < map->width)
 		{
 			pixel = buffer + (map->size_line * y) + x * (map->bpp / 8);
-			color = colortab[((long)map->range - (map->max - (map->map)[x / SCALE][y / SCALE])) * 510 / map->range];
-			// printf("min : %d | max : %d | range : %ld\n", map->min, map->max, map->range);
+			color = colortab [((long)map->range - (map->max - \
+					(map->map)[x / SCALE][y / SCALE])) * 510 / map->range];
 			if (!fdf_fill_pixel(pixel, map->endian, color))
 				break ;
 		}
@@ -69,7 +69,7 @@ void	fdf_maptoscreen(t_map *map, void *mlx_ptr)
 	size_t	pixel;
 
 	win_ptr = mlx_new_window \
-		(mlx_ptr, (map->width * SCALE), (map->height * SCALE), "FdF");
+			(mlx_ptr, (map->width * SCALE), (map->height * SCALE), "FdF");
 	pixel = (map->size_line * y) + x * (map->bpp / 8);
 	fdf_fill_img(map, map->buf);
 	mlx_put_image_to_window(mlx_ptr, win_ptr, map->img, 0, 0);
