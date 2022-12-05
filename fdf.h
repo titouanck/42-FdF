@@ -5,69 +5,74 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/29 18:09:20 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/02 16:25:10 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/05 18:39:41 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <mlx.h>
 # include <libft.h>
-# include "colors.h"
-
-# ifndef SCREEN_POURCENT
-#  define SCREEN_POURCENT 0.9
-# endif
-
-# ifndef SCREEN_W
-#  define SCREEN_W 2560
-# endif
-
-# ifndef SCREEN_H
-#  define SCREEN_H 1400
-# endif
-
-# ifndef PX_RPR
-#  define PX_RPR 5
-# endif
+# include <mlx.h>
+# include <math.h>
+# include "ft_colors.h"
 
 # define ERR_OPEN "FdF: failed to open file.\n"
 # define ERR_FILE "FdF: map error.\n"
+# define ERR_ALLOC "FdF: failed to allocate memory.\n"
 
-typedef struct s_map
+# define WIN_WIDTH 2560
+# define WIN_HEIGHT 1400
+
+typedef struct s_point
 {
-	void	*img;
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}		t_point;
+
+typedef struct s_mapctr
+{
+	t_point	**tpoint;
+	int		**map;
 	int		width;
 	int		height;
-	char	*buf;
-	int		bpp;
-	int		size_line;
-	int		endian;
-	int		**map;
 	int		min;
 	int		max;
 	long	range;
-}			t_map;
+}			t_mapctr;
+
+typedef struct s_mlximg
+{
+	void	*ptr;
+	char	*str;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}			t_mlximg;
+
+typedef struct s_mlx
+{
+	void		*ptr;
+	void		*win;
+	t_mapctr	mapctr;
+	t_mlximg	img;
+}				t_mlx;
 
 /* Generic utility functions */
-void	ft_colored_window(int w, int h);
+void		ft_colored_window(int w, int h);
 
-/* fdf utility functions */
-void	fdf_mapsize(int fd, int *width, int *height);
-int		fdf_printfile(char *file);
-int		fdf_map3d(char *file);
-int		**fdf_mapgenerate(int fd, int width, int height);
-void	fdf_mapfree(int **map);
-void	fdf_mapprint(t_map *map);
-void	fdf_maptoscreen(t_map *map, void *mlx_ptr);
-void	fdf_mapfindrange(t_map *map);
-int		*fdf_generatecolortab(void);
-float	fdf_defscale(int width, int height);
+/* FdF utility functions */
+int			fdf_fileoperations(char *file, t_mlx *mlxdata, float scale);
+int			**fdf_generate_map(int fd, t_mapctr *mapctr);
+void		fdf_free_map(int **map);
+void		fdf_print_map(t_mapctr mapctr);
+void		fdf_findrange(t_mapctr *mapctr);
+int			fdf_fill_img(t_mlx *mlxdata, float scale);
+int			*fdf_colorgradient(void);
 
-/* fdf lstmap functions */
-t_map	*fdf_lstmap_new(void *mlx_ptr, int fd);
-void	fdf_lstmap_free(void *mlx_ptr, t_map *map);
+/* FdF lst functions */
 
 #endif
