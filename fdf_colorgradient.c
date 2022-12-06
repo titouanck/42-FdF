@@ -6,11 +6,27 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:31:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/05 18:39:28 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:18:12 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+long	fdf_colorgradient_indice(t_mlx *mlxdata, int x, int y)
+{
+	long	colors;
+	long	range;
+	long	max;
+	long	point;
+	long	indice;
+
+	colors = 510;
+	range = mlxdata->mapctr.range;
+	max = mlxdata->mapctr.max;
+	point = (mlxdata->mapctr.map[x][y].z);
+	indice = ((range - (max - point)) * colors) / range;
+	return (indice);
+}
 
 int	*fdf_colorgradient(void)
 {

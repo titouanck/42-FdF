@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/05 18:49:45 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/06 20:13:58 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,25 @@ int	fdf(char *file)
 {
 	int		fd;
 	t_mlx	mlxdata;
-	int		scale;
+	float	scale;
+	int		*colors;
 
 	if (!file)
 		return (0);
-	scale = 1;
+	scale = 100;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
-		// fdf_print_map(mlxdata.mapctr);
 		fdf_findrange(&(mlxdata.mapctr));
 		mlxdata.win = mlx_new_window(mlxdata.ptr, \
-				mlxdata.mapctr.width * scale, \
-				mlxdata.mapctr.height * scale, "FdF");
-		if (fdf_fill_img(&mlxdata, scale))
+				(float)mlxdata.mapctr.width * scale, \
+				(float)mlxdata.mapctr.height * scale, "FdF");
+		colors = fdf_colorgradient();
+		fdf_colormap(&mlxdata, colors);
+		if (colors && fdf_fill_img(&mlxdata, scale))
 		{
-			mlx_put_image_to_window(mlxdata.ptr, mlxdata.win, \
-					mlxdata.img.ptr, 0, 0);
+			mlx_put_image_to_window(mlxdata.ptr, \
+					mlxdata.win, mlxdata.img.ptr, 0, 0);
 			mlx_loop(mlxdata.ptr);
 		}
 	}

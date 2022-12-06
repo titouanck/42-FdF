@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_print_map.c                                    :+:      :+:    :+:   */
+/*   fdf_put_pixel.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 22:50:49 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 15:18:58 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/06 20:01:43 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/06 20:01:55 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_print_map(t_mapctr mapctr)
+int	fdf_put_pixel(t_mlx *mlxdata, int color, char *pixel)
 {
-	size_t	x;
-	size_t	y;
+	t_color	tcolor;
 
-	y = 0;
-	while (y < mapctr.height)
+	tcolor = rrgb(color);
+	if (mlxdata->img.endian == 1)
 	{
-		x = 0;
-		while (x < mapctr.width)
-		{
-			printf("%-3d", (mapctr.map)[x][y].z);
-			x++;
-		}
-		printf("\n");
-		y++;
+		*(pixel + 0) = 0;
+		*(pixel + 1) = tcolor.r;
+		*(pixel + 2) = tcolor.g;
+		*(pixel + 3) = tcolor.b;
 	}
+	else if (mlxdata->img.endian == 0)
+	{
+		*(pixel + 3) = 0;
+		*(pixel + 2) = tcolor.r;
+		*(pixel + 1) = tcolor.g;
+		*(pixel + 0) = tcolor.b;
+	}
+	else
+		return (0);
+	return (1);
 }

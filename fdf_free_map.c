@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 21:53:02 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/05 17:46:51 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:17:09 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_free_map(int **map)
+void	fdf_free_map(t_point **map)
 {
 	size_t	i;
 

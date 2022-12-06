@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/05 18:47:03 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/06 20:20:06 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,22 +61,21 @@ int	fdf_fileoperations(char *file, t_mlx *mlxdata, float scale)
 {
 	int		fd;
 
-	scale = 1;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(ERR_OPEN), 0);
 	if (!fdf_set_mapsize(fd, &(mlxdata->mapctr)))
 		return (ft_printf(ERR_FILE), 0);
 	mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
-			mlxdata->mapctr.width * scale, \
-			mlxdata->mapctr.height * scale);
+			(float)mlxdata->mapctr.width * scale, \
+			(float)mlxdata->mapctr.height * scale);
 	mlxdata->img.str = mlx_get_data_addr(mlxdata->img.ptr, \
 			&(mlxdata->img.bpp), &(mlxdata->img.size_line), \
 			&(mlxdata->img.endian));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(ERR_OPEN), 0);
-	mlxdata->mapctr.map = fdf_generate_map(fd, &(mlxdata->mapctr));
+	fdf_generate_map(fd, &(mlxdata->mapctr), scale);
 	close(fd);
 	if (!mlxdata->mapctr.map)
 		return (ft_printf(ERR_ALLOC, 0));

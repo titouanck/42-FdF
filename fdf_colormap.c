@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_print_map.c                                    :+:      :+:    :+:   */
+/*   fdf_colormap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 22:50:49 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 15:18:58 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/06 15:50:43 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/06 20:14:29 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_print_map(t_mapctr mapctr)
+void	fdf_colormap(t_mlx *mlxdata, int *colors)
 {
 	size_t	x;
 	size_t	y;
 
-	y = 0;
-	while (y < mapctr.height)
+	if (!colors)
 	{
-		x = 0;
-		while (x < mapctr.width)
+		ft_printf(ERR_ALLOC, 0);
+		return ;
+	}
+	x = 0;
+	while (x < mlxdata->mapctr.width)
+	{
+		y = 0;
+		while (y < mlxdata->mapctr.height)
 		{
-			printf("%-3d", (mapctr.map)[x][y].z);
-			x++;
+			mlxdata->mapctr.map[x][y].color = \
+					colors[fdf_colorgradient_indice(mlxdata, x, y)];
+			y++;
 		}
-		printf("\n");
-		y++;
+		x++;
 	}
 }
