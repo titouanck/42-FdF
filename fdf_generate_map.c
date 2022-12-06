@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 20:43:19 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/06 23:48:52 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fdf_map_fill(t_mapctr *mapctr, int fd, int scale)
+static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 {
 	size_t	x;
 	size_t	y;
@@ -29,8 +29,8 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, int scale)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				((mapctr->map)[x][y]).x = x * scale;
-				((mapctr->map)[x][y]).y = y * scale;
+				((mapctr->map)[x][y]).x = hypotf(mapctr->height * scale, mapctr->height * scale) / 2 + (x * (hypotf(scale, scale) / 2)) - (y * (hypotf(scale, scale) / 2));
+				((mapctr->map)[x][y]).y = (x * (hypotf(scale, scale) / 2)) + y * (hypotf(scale, scale) / 2);
 				((mapctr->map)[x++][y]).z = ft_atoi(line + i);
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
@@ -42,7 +42,7 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, int scale)
 	}
 }
 
-t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, int scale)
+t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
 {
 	t_point		**map;
 	size_t	i;

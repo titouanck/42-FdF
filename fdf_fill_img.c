@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:22 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 20:15:45 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 00:27:21 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 {
 	int		x;
 	int		y;
-	int		color;
+	t_point	current;
 
 	y = 0;
 	while (y < mlxdata->mapctr.height)
@@ -24,19 +24,19 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 		x = 0;
 		while (x < mlxdata->mapctr.width)
 		{
-			color = mlxdata->mapctr.map[x][y].color;
-			fdf_put_pixel(mlxdata, color, mlxdata->img.str + \
-					((long)(y * scale)*(long)mlxdata->img.size_line) + \
-					((long)(x * scale)*(long)(mlxdata->img.bpp / 8)));
-			if (x > 0)
-				fdf_bresenham(mlxdata, mlxdata->mapctr.map[x - 1][y] \
-						, mlxdata->mapctr.map[x][y]);
-			if (y > 0)
-				fdf_bresenham(mlxdata, mlxdata->mapctr.map[x][y - 1], \
-						mlxdata->mapctr.map[x][y]);
+			current = mlxdata->mapctr.map[x][y];
+			fdf_put_pixel(mlxdata, current.color, mlxdata->img.str + \
+					((long)(current.y)*(long)mlxdata->img.size_line) + \
+					((long)(current.x)*(long)(mlxdata->img.bpp / 8)));
+			// if (x > 0)
+			// 	fdf_bresenham(mlxdata, mlxdata->mapctr.map[x - 1][y], current);
+			// if (y > 0)
+			// 	fdf_bresenham(mlxdata, mlxdata->mapctr.map[x][y - 1], current);
 			x++;
 		}
 		y++;
+		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][0], mlxdata->mapctr.map[mlxdata->mapctr.width - 1][0]);
+		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][2], mlxdata->mapctr.map[0][3]);
 	}
 	return (1);
 }
