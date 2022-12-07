@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 20:13:43 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 12:14:01 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	fdf_bresenham_else(t_mlx *data, \
 	i = 0;
 	while (current.y != end.y)
 	{
+		// printf("current.x = %d / %d | current.y = %d / %d | ratio = %f\n", current.x, end.x, current.y, end.y, ratio);
 		if (current.y < end.y)
 			current.y += 1;
 		else
@@ -69,14 +70,21 @@ void	fdf_bresenham(t_mlx *data, t_point start, t_point end)
 	float	ratio;
 
 	xrange = end.x - start.x;
+	if (xrange < 0)
+		xrange = xrange * -1;
 	yrange = end.y - start.y;
+	if (yrange < 0)
+		yrange = yrange * -1;
+	printf("xrange: %f | yrange = %f\n", xrange, yrange);
 	if (xrange > yrange)
 	{
+		ft_printf("bresenham: IF\n");
 		ratio = yrange / xrange;
 		fdf_bresenham_if(data, start, end, ratio);
 	}
 	else
 	{
+		ft_printf("bresenham: ELSE\n");
 		ratio = xrange / yrange;
 		fdf_bresenham_else(data, start, end, ratio);
 	}

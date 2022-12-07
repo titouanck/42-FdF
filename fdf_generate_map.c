@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 23:48:52 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 11:59:34 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				((mapctr->map)[x][y]).x = hypotf(mapctr->height * scale, mapctr->height * scale) / 2 + (x * (hypotf(scale, scale) / 2)) - (y * (hypotf(scale, scale) / 2));
-				((mapctr->map)[x][y]).y = (x * (hypotf(scale, scale) / 2)) + y * (hypotf(scale, scale) / 2);
-				((mapctr->map)[x++][y]).z = ft_atoi(line + i);
+				((mapctr->map)[x][y]).x = (hypotf(mapctr->height * scale, mapctr->height * scale) / 2) + (x * (hypotf(scale, scale) / 2)) - (y * (hypotf(scale, scale) / 2));
+				((mapctr->map)[x][y]).y = (x * (hypotf(scale, scale) / 2)) + (y * (hypotf(scale, scale) / 2));
+				((mapctr->map)[x++][y]).z = (float)ft_atoi(line + i);
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
 			}
