@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 17:08:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:57:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	scale = 20;
+	scale = 30;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
