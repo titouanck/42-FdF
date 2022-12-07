@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 13:44:32 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:57:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # define ERR_OPEN "FdF: failed to open file.\n"
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
+
+# define PERSPECTIVE 1
 
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1400
