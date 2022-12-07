@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 17:02:20 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:21:12 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-# define ANGLE 2
+# define ANGLE -2
 
 static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 {
@@ -42,14 +42,22 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 					}
 					else
 					{
-						((mapctr->map)[x][y]).x = 1000 - (y * scale);
-						((mapctr->map)[x][y]).y = 400 + (x * scale);
+						((mapctr->map)[x][y]).x = 1000 - (y * scale) - ((x * scale) * ((ANGLE - 1))) + ((ANGLE - 1) * (y * scale));
+						((mapctr->map)[x][y]).y = 400 + (x * scale) - ((y * scale) * ((ANGLE - 1))) - ((ANGLE - 1) * (x * scale));
 					}
 				}
 				else
 				{
-					((mapctr->map)[x][y]).x = 1000 + ((x * scale) * (1 - (ANGLE * -1))) + ((ANGLE * -1) * (y * scale));
-					((mapctr->map)[x][y]).y = 400 + ((y * scale) * (1 - (ANGLE * -1))) - ((ANGLE * -1) * (x * scale));
+					if (ANGLE >= -1)
+					{
+						((mapctr->map)[x][y]).x = 1000 + ((x * scale) * (1 - (ANGLE * -1))) + ((ANGLE * -1) * (y * scale));
+						((mapctr->map)[x][y]).y = 400 + ((y * scale) * (1 - (ANGLE * -1))) - ((ANGLE * -1) * (x * scale));
+					}
+					else
+					{
+						((mapctr->map)[x][y]).x = 1000 + (y * scale) - ((x * scale) * (((ANGLE + 1) * -1))) - (((ANGLE + 1) * -1) * (y * scale));
+						((mapctr->map)[x][y]).y = 400 - (x * scale) - ((y * scale) * (((ANGLE + 1) * -1))) + (((ANGLE + 1) * -1) * (x * scale));
+					}
 				}
 				((mapctr->map)[x++][y]).z = (float)ft_atoi(line + i);
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
