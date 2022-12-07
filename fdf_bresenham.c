@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 12:14:01 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:40:17 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	fdf_bresenham_if(t_mlx *data, \
 		t_point start, t_point end, float ratio)
 {
 	t_point	current;
-	size_t	i;
+	float	i;
 
 	current = start;
 	i = 0;
-	while (current.x != end.x)
+	while (roundf(current.x) != roundf(end.x))
 	{
 		if (current.x < end.x)
 			current.x += 1;
@@ -41,11 +41,11 @@ static void	fdf_bresenham_else(t_mlx *data, \
 		t_point start, t_point end, float ratio)
 {
 	t_point	current;
-	size_t	i;
+	float	i;
 
 	current = start;
 	i = 0;
-	while (current.y != end.y)
+	while (roundf(current.y) != roundf(end.y))
 	{
 		// printf("current.x = %d / %d | current.y = %d / %d | ratio = %f\n", current.x, end.x, current.y, end.y, ratio);
 		if (current.y < end.y)
@@ -75,6 +75,8 @@ void	fdf_bresenham(t_mlx *data, t_point start, t_point end)
 	yrange = end.y - start.y;
 	if (yrange < 0)
 		yrange = yrange * -1;
+	xrange = ((int)(xrange * 100)) / 100;
+	yrange = ((int)(yrange * 100)) / 100;
 	printf("xrange: %f | yrange = %f\n", xrange, yrange);
 	if (xrange > yrange)
 	{
