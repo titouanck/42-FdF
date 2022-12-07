@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 11:47:43 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:47:53 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	scale = 30;
+	scale = 20;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
@@ -32,9 +32,12 @@ int	fdf(char *file)
 		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
 		// 		hypotf(mlxdata.mapctr.width * scale, mlxdata.mapctr.height * scale), \
 		// 		hypotf(mlxdata.mapctr.height * scale, mlxdata.mapctr.width * scale), "FdF");
+		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
+		// 		mlxdata.mapctr.width * scale / sqrt(2) + mlxdata.mapctr.height * scale / sqrt(2), \
+		// 		mlxdata.mapctr.height * scale / sqrt(2) + mlxdata.mapctr.width * scale / sqrt(2), "FdF");
 		mlxdata.win = mlx_new_window(mlxdata.ptr, \
-				mlxdata.mapctr.width * scale / sqrt(2) + mlxdata.mapctr.height * scale / sqrt(2), \
-				mlxdata.mapctr.height * scale / sqrt(2) + mlxdata.mapctr.width * scale / sqrt(2), "FdF");
+				WIN_WIDTH * 0.8, \
+				WIN_HEIGHT * 0.8, "FdF");
 		colors = fdf_colorgradient();
 		fdf_colormap(&mlxdata, colors);
 		if (colors && fdf_fill_img(&mlxdata, scale))

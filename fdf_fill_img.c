@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:22 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 13:41:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 16:24:40 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 		while (x < mlxdata->mapctr.width)
 		{
 			current = mlxdata->mapctr.map[x][y];
-			// fdf_put_pixel(mlxdata, current.color, mlxdata->img.str + \
-			// 		((long)(current.y)*(long)mlxdata->img.size_line) + \
-			// 		((long)(current.x)*(long)(mlxdata->img.bpp / 8)));
-			if (x > 0)
-				printf("Difference : %.2f\n", current.x - mlxdata->mapctr.map[x - 1][y].x);
+			fdf_put_pixel(mlxdata, current.color, mlxdata->img.str + \
+					((long)(current.y)*(long)mlxdata->img.size_line) + \
+					((long)(current.x)*(long)(mlxdata->img.bpp / 8)));
+			// if (x > 0)
+			// 	printf("Difference : %.2f\n", current.x - mlxdata->mapctr.map[x - 1][y].x);
 			if (x > 0)
 				fdf_bresenham(mlxdata, mlxdata->mapctr.map[x - 1][y], current);
 			if (y > 0)

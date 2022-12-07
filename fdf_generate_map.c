@@ -6,11 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 13:55:58 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 17:02:20 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+# define ANGLE 2
 
 static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 {
@@ -29,8 +31,26 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale, mapctr->height * scale)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2));
-				((mapctr->map)[x][y]).y = (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
+				// ((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale, mapctr->height * scale)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2));
+				// ((mapctr->map)[x][y]).y = (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
+				if (ANGLE >= 0)
+				{
+					if (ANGLE <= 1)
+					{
+						((mapctr->map)[x][y]).x = 1000 + ((x * scale) * (1 - ANGLE)) - (ANGLE * (y * scale));
+						((mapctr->map)[x][y]).y = 400 + ((y * scale) * (1 - ANGLE)) + (ANGLE * (x * scale));
+					}
+					else
+					{
+						((mapctr->map)[x][y]).x = 1000 - (y * scale);
+						((mapctr->map)[x][y]).y = 400 + (x * scale);
+					}
+				}
+				else
+				{
+					((mapctr->map)[x][y]).x = 1000 + ((x * scale) * (1 - (ANGLE * -1))) + ((ANGLE * -1) * (y * scale));
+					((mapctr->map)[x][y]).y = 400 + ((y * scale) * (1 - (ANGLE * -1))) - ((ANGLE * -1) * (x * scale));
+				}
 				((mapctr->map)[x++][y]).z = (float)ft_atoi(line + i);
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
