@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 20:43:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 21:04:27 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ long		fdf_colorgradient_indice(t_mlx *mlxdata, int x, int y);
 void		fdf_colormap(t_mlx *mlxdata, int *colors);
 int			fdf_put_pixel(t_mlx *mlxdata, int color, char *pixel);
 void		fdf_bresenham(t_mlx *data, t_point start, t_point end);
+void		fdf_clearlines(t_mlx *data, t_point start, t_point end);
 void		fdf_map_fill(t_mlx *data, float deg, float ix, float iy);
 int			fdf_map_to_screen(t_mlx *data, float deg, float ix, float iy);
+void		fdf_clear_img(t_mlx *data, t_mapctr *mapctr);
+
 #endif
