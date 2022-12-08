@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 20:43:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 23:55:02 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,20 +131,18 @@ static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
 		while (++x < mapctr->width)
 		{
 			in_range = (((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * scale);
-			((mapctr->map)[x][y]).x -= (in_range * (1 - cos(deg / 57.2958)) + in_range * -sin(deg / 57.2958));
-			// ((mapctr->map)[x][y]).x -= (in_range * cos(deg / 57.2958) + in_range * (sin(deg / 57.2958) * -1));
-			((mapctr->map)[x][y]).y -= (in_range * (-cos(deg / 57.2958)) + in_range * (1 - sin(deg / 57.2958)));
-			// ((mapctr->map)[x][y]).y -= (in_range * sin(deg / 57.2958) + in_range * cos(deg / 57.2958));
+			((mapctr->map)[x][y]).x -= in_range;
+			((mapctr->map)[x][y]).y -= in_range;
 		}
 	}
 }
 
-void	fdf_map_fill(t_mlx *data, float deg, float ix, float iy)
+void	fdf_map_fill(t_mlx *data)
 {
 	fdf_map_fill_xy(&(data->mapctr), data->scale);
-	fdf_map_rotation(&(data->mapctr), deg);
-	fdf_map_inclinaison(&(data->mapctr), ix, iy);
-	// fdf_map_relief(&(data->mapctr), scale, deg);
+	fdf_map_rotation(&(data->mapctr), data->deg);
+	fdf_map_inclinaison(&(data->mapctr), data->ix, data->iy);
+	// fdf_map_relief(&(data->mapctr), data->scale, data->deg);
 	fdf_map_center(&(data->mapctr));
 }
 

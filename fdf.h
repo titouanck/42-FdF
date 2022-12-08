@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 21:04:27 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 23:45:40 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,15 @@
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
 
-# define WIN_WIDTH 1600
-# define WIN_HEIGHT 1400
+# ifdef MACOS
+#  define WIN_WIDTH 1470
+#  define WIN_HEIGHT 889
+# endif
+
+# ifndef MACOS
+#  define WIN_WIDTH 1560
+#  define WIN_HEIGHT 1400
+# endif
 
 typedef struct s_point
 {
@@ -58,8 +65,11 @@ typedef struct s_mlx
 	void		*win;
 	t_mapctr	mapctr;
 	t_mlximg	img;
-	float		scale;
 	int			*colors;
+	float		scale;
+	float		deg;
+	float		ix;
+	float		iy;
 }				t_mlx;
 
 /* Generic utility functions */
@@ -78,8 +88,8 @@ void		fdf_colormap(t_mlx *mlxdata, int *colors);
 int			fdf_put_pixel(t_mlx *mlxdata, int color, char *pixel);
 void		fdf_bresenham(t_mlx *data, t_point start, t_point end);
 void		fdf_clearlines(t_mlx *data, t_point start, t_point end);
-void		fdf_map_fill(t_mlx *data, float deg, float ix, float iy);
+void		fdf_map_fill(t_mlx *data);
 int			fdf_map_to_screen(t_mlx *data, float deg, float ix, float iy);
-void		fdf_clear_img(t_mlx *data, t_mapctr *mapctr);
+void		fdf_keypressed(int key, void *param);
 
 #endif

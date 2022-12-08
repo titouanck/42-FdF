@@ -11,7 +11,7 @@ MLXPATH = -I minilibx-linux -L minilibx-linux -lmlx -lXext -lX11 -lm
 MLXPATH_MACOS = -I minilibx-macos -L minilibx-macos -lmlx -framework OpenGL -framework AppKit -lm
 
 LIBS = ${LIBFTPATH} ${MLXPATH}
-LIBS_MACOS = ${LIBFTPATH} ${MLXPATH_MACOS}
+LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS}
 
 CFLAGS = -fsanitize=address -g3 #-Wall -Werror -Wextra
 # (CFLAGS : Only absent during program design)
