@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 12:29:14 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:46:28 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ void	fdf_relief(t_mlx *mlxdata, t_mapctr *mapctr)
 	long	y;
 	float	angle;
 
+	if (mapctr->range == 0)
+		return ;
 	y = -1;
 	while (++y < mapctr->height)
 	{
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			((mapctr->map)[x][y]).x -= (((mapctr->range - (mapctr->max - (long)(mapctr->map[x][y].z))) / mapctr->range) * 0.75) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
-			((mapctr->map)[x][y]).y -= (((mapctr->range - (mapctr->max - (long)(mapctr->map[x][y].z))) / mapctr->range) * 0.75) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
-			// printf("((mapctr->range = %ld) - (mapctr->max - mapctr->map[x][y].z = %ld)) / (mapctr->range = %ld)\n\n", mapctr->range, mapctr->max - (long)(mapctr->map[x][y].z), mapctr->range);
-			// printf("Calcul result: %ld(%ld)\n", (mapctr->range - (mapctr->max - mapctr->map[x][y].z)) / mapctr->range);
-			printf("Result: %f\n", ((mapctr->range - (mapctr->max - (long)(mapctr->map[x][y].z))) / mapctr->range) * 0.75);
+			((mapctr->map)[x][y]).x -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
+			((mapctr->map)[x][y]).y -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
 		}
 	}
 }
@@ -42,25 +41,16 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	scale = 35;
+	scale = 20;
 	mlxdata.scale = scale;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
 		fdf_findrange(&(mlxdata.mapctr));
 		fdf_relief(&mlxdata, &(mlxdata.mapctr));
-		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
-		// 		(float)mlxdata.mapctr.width * scale, \
-		// 		(float)mlxdata.mapctr.height * scale, "FdF");
-		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
-		// 		hypotf(mlxdata.mapctr.width * scale, mlxdata.mapctr.height * scale), \
-		// 		hypotf(mlxdata.mapctr.height * scale, mlxdata.mapctr.width * scale), "FdF");
 		mlxdata.win = mlx_new_window(mlxdata.ptr, \
 				mlxdata.mapctr.width * scale * PERSPECTIVE / sqrt(2) + mlxdata.mapctr.height * scale * PERSPECTIVE / sqrt(2), \
 				mlxdata.mapctr.height * scale / sqrt(2) + mlxdata.mapctr.width * scale / sqrt(2), "FdF");
-		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
-		// 		WIN_WIDTH * 0.8, \
-		// 		WIN_HEIGHT * 0.8, "FdF");
 		colors = fdf_colorgradient();
 		mlxdata.colors = colors;
 		fdf_colormap(&mlxdata, colors);

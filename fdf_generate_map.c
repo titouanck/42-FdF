@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 11:53:18 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:43:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 			{
 				((mapctr->map)[x][y]).z = (float)ft_atoi(line + i);
 				((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale * PERSPECTIVE, mapctr->height * scale * PERSPECTIVE)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2)); // + ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z)) * 1) / mapctr->range) * (((hypot(scale, scale) * PERSPECTIVE) / 2) * 0.8));
-				((mapctr->map)[x][y]).y = (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
+				((mapctr->map)[x][y]).y = ((hypot(scale, scale) * PERSPECTIVE) / 2) + (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
 				// printf("Calcul result: %f\n", ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z))) / mapctr->range)));
 				// printf("Calcul result: %f(%f)\n", ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z))) , mapctr->range)));
 				// if (angle >= 0)

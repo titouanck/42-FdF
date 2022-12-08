@@ -6,24 +6,24 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 12:15:16 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 14:37:41 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static long	fdf_colorgradient_z(t_mlx *mlxdata, long point)
+static long	fdf_colorgradient_z(t_mlx *mlxdata, float point)
 {
-	long	colors;
-	long	range;
-	long	max;
-	long	indice;
+	float	colors;
+	float	range;
+	float	max;
+	float	indice;
 
 	colors = 510;
 	range = mlxdata->mapctr.range;
 	max = mlxdata->mapctr.max;
 	indice = ((range - (max - point)) * colors) / range;
-	return (indice);
+	return (roundf(indice));
 }
 
 static void	fdf_bresenham_if(t_mlx *data, \
@@ -35,7 +35,8 @@ static void	fdf_bresenham_if(t_mlx *data, \
 
 	// steps = end.x - start.x;
 	zratio = end.z - start.z;
-	zratio = zratio / fabs(end.x - start.x);
+	if (fabs(start.x - end.x) != 0)
+		zratio = zratio / fabs(start.x - end.x);
 	current = start;
 	i = 0;
 	while (roundf(current.x) != roundf(end.x))
@@ -48,7 +49,10 @@ static void	fdf_bresenham_if(t_mlx *data, \
 			current.y = start.y + (ratio * i);
 		else
 			current.y = start.y - (ratio * i);
-		current.z = start.z + (zratio * i);
+		if (zratio < 0)
+			current.z = start.z - (fabs(zratio) * i);
+		else
+			current.z = start.z + (fabs(zratio) * i);
 		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
 		fdf_put_pixel(data, current.color, data->img.str + \
 				((long)(current.y)*(long)data->img.size_line) + \
@@ -65,7 +69,8 @@ static void	fdf_bresenham_else(t_mlx *data, \
 	float	i;
 
 	zratio = end.z - start.z;
-	zratio = zratio / fabs(end.x - start.x);
+	if (fabs(start.y - end.y) != 0)
+		zratio = zratio / fabs(end.y - start.y);
 	current = start;
 	i = 0;
 	while (roundf(current.y) != roundf(end.y))
@@ -78,7 +83,10 @@ static void	fdf_bresenham_else(t_mlx *data, \
 			current.x = start.x + (ratio * i);
 		else
 			current.x = start.x - (ratio * i);
-		current.z = start.z + (zratio * i);
+		if (zratio < 0)
+			current.z = start.z - (fabs(zratio) * i);
+		else
+			current.z = start.z + (fabs(zratio) * i);
 		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
 		fdf_put_pixel(data, current.color, data->img.str + \
 				((long)(current.y)*(long)data->img.size_line) + \
