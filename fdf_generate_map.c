@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 23:55:02 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:40:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	fdf_map_fill(t_mlx *data)
 	fdf_map_fill_xy(&(data->mapctr), data->scale);
 	fdf_map_rotation(&(data->mapctr), data->deg);
 	fdf_map_inclinaison(&(data->mapctr), data->ix, data->iy);
-	// fdf_map_relief(&(data->mapctr), data->scale, data->deg);
+	fdf_map_relief(&(data->mapctr), data->scale, data->deg);
 	fdf_map_center(&(data->mapctr));
 }
 

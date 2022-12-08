@@ -6,13 +6,27 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 23:53:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 00:40:42 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-
+float	fdf_get_scale(t_mlx *data)
+{
+	float	scalex;
+	float	scaley;
+	
+	scalex = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.height);
+	scaley = WIN_HEIGHT / hypotf(data->mapctr.width, data->mapctr.height);
+	// return (0.5);
+	if (scalex < scaley)
+		return (scalex);
+	else
+		return (scaley);
+	// printf("scale = %f ou %f\n", scalex, scaley);
+	
+}
 
 int	fdf(char *file)
 {
@@ -30,7 +44,7 @@ int	fdf(char *file)
 		if (!(mlxdata.colors))
 			return (ft_printf(ERR_ALLOC), 0);
 		fdf_colormap(&mlxdata, mlxdata.colors);
-		mlxdata.scale = 40;
+		mlxdata.scale = fdf_get_scale(&mlxdata);
 		mlxdata.deg = 45;
 		mlxdata.ix = 1;
 		mlxdata.iy = 0.5;
