@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:40:40 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 15:19:29 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:17:30 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	fdf_findrange(t_mapctr *mapctr)
 {
-	size_t	x;
-	size_t	y;
+	long	x;
+	long	y;
 	int		current;
 
 	mapctr->min = 2147483647;

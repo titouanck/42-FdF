@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 14:37:41 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:14:32 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	fdf_bresenham_if(t_mlx *data, \
 	float	zratio;
 	float	i;
 
-	// steps = end.x - start.x;
 	zratio = end.z - start.z;
 	if (fabs(start.x - end.x) != 0)
 		zratio = zratio / fabs(start.x - end.x);

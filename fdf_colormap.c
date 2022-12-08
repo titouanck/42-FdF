@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:50:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 20:14:29 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:16:34 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	fdf_colormap(t_mlx *mlxdata, int *colors)
 {
-	size_t	x;
-	size_t	y;
+	long	x;
+	long	y;
 
 	if (!colors)
 	{

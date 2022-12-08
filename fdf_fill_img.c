@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:22 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 17:57:35 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:16:56 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	fdf_fill_img(t_mlx *mlxdata, float scale)
+int	fdf_fill_img(t_mlx *mlxdata)
 {
 	int		x;
 	int		y;
@@ -25,7 +25,6 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 		while (x < mlxdata->mapctr.width)
 		{
 			current = mlxdata->mapctr.map[x][y];
-			printf("Pixel: [%3f][%2f]\n", (mlxdata->mapctr.map[x][y]).x, (mlxdata->mapctr.map[x][y]).y);
 			fdf_put_pixel(mlxdata, current.color, mlxdata->img.str + \
 					((long)(current.y)*(long)mlxdata->img.size_line) + \
 					((long)(current.x)*(long)(mlxdata->img.bpp / 8)));
@@ -36,11 +35,6 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 			x++;
 		}
 		y++;
-		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][0], mlxdata->mapctr.map[0][mlxdata->mapctr.height - 1]);
-		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][0], mlxdata->mapctr.map[mlxdata->mapctr.width - 1][0]);
-		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[1][0], mlxdata->mapctr.map[0][0]);
-		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][0], mlxdata->mapctr.map[0][1]);
-		// fdf_bresenham(mlxdata, mlxdata->mapctr.map[0][0], mlxdata->mapctr.map[0][1]);
 	}
 	return (1);
 }
