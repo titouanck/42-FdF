@@ -6,13 +6,11 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 19:11:14 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 20:43:26 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-
 
 static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 {
@@ -86,7 +84,7 @@ static void	fdf_map_rotation(t_mapctr *mapctr, float deg)
 	}
 }
 
-static void	fdf_map_inclinaison(t_mapctr *mapctr, long ix, long iy)
+static void	fdf_map_inclinaison(t_mapctr *mapctr, float ix, float iy)
 {
 	long	x;
 	long	y;
@@ -124,6 +122,7 @@ static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
 {
 	long	x;
 	long	y;
+	float	in_range;
 
 	y = -1;
 	while (++y < mapctr->height)
@@ -131,24 +130,25 @@ static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			((mapctr->map)[x][y]).x -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(scale, scale)) / 2);
-			((mapctr->map)[x][y]).y -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(scale, scale)) / 2);
+			in_range = (((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * scale);
+			((mapctr->map)[x][y]).x -= (in_range * (1 - cos(deg / 57.2958)) + in_range * -sin(deg / 57.2958));
+			// ((mapctr->map)[x][y]).x -= (in_range * cos(deg / 57.2958) + in_range * (sin(deg / 57.2958) * -1));
+			((mapctr->map)[x][y]).y -= (in_range * (-cos(deg / 57.2958)) + in_range * (1 - sin(deg / 57.2958)));
+			// ((mapctr->map)[x][y]).y -= (in_range * sin(deg / 57.2958) + in_range * cos(deg / 57.2958));
 		}
 	}
 }
 
-void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
+void	fdf_map_fill(t_mlx *data, float deg, float ix, float iy)
 {
-	fdf_map_fill_xy(mapctr, scale);
-	fdf_map_fill_z(mapctr, fd);
-	fdf_findrange(mapctr);
-	fdf_map_rotation(mapctr, deg);
-	fdf_map_inclinaison(mapctr, 1, 1);
-	fdf_map_relief(mapctr, scale, deg);
-	fdf_map_center(mapctr);
+	fdf_map_fill_xy(&(data->mapctr), data->scale);
+	fdf_map_rotation(&(data->mapctr), deg);
+	fdf_map_inclinaison(&(data->mapctr), ix, iy);
+	// fdf_map_relief(&(data->mapctr), scale, deg);
+	fdf_map_center(&(data->mapctr));
 }
 
-t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
+t_point	**fdf_generate_map(int fd, t_mlx *mlxdata, t_mapctr *mapctr)
 {
 	t_point		**map;
 	long		i;
@@ -167,6 +167,7 @@ t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
 		i++;
 	}
 	mapctr->map = map;
-	fdf_map_fill(mapctr, fd, scale, 0);
+	fdf_map_fill_z(mapctr, fd);
+	fdf_findrange(mapctr);
 	return (map);
 }

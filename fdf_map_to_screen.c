@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_colormap.c                                     :+:      :+:    :+:   */
+/*   fdf_map_to_screen.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/06 15:50:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 20:33:42 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/08 20:36:11 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/08 20:42:55 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_colormap(t_mlx *mlxdata, int *colors)
+int	fdf_map_to_screen(t_mlx *data, float deg, float ix, float iy)
 {
-	long	x;
-	long	y;
-
-	if (!colors)
-	{
-		ft_printf(ERR_ALLOC, 0);
-		return ;
-	}
-	x = 0;
-	while (x < mlxdata->mapctr.width)
-	{
-		y = 0;
-		while (y < mlxdata->mapctr.height)
-		{
-			mlxdata->mapctr.map[x][y].color = \
-					colors[fdf_colorgradient_indice(mlxdata, x, y)];
-			y++;
-		}
-		x++;
-	}
+		fdf_map_fill(data, deg, ix, iy);
+		fdf_fill_img(data);
+		mlx_put_image_to_window(data->ptr, \
+				data->win, data->img.ptr, 0, 0);
+		return (1);
 }

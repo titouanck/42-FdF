@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 18:37:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 20:43:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ typedef struct s_mlx
 void		ft_colored_window(int w, int h);
 
 /* FdF utility functions */
-int			fdf_fileoperations(char *file, t_mlx *mlxdata, float scale);
-t_point		**fdf_generate_map(int fd, t_mapctr *mapctr, float scale);
+int			fdf_fileoperations(char *file, t_mlx *mlxdata);
+t_point		**fdf_generate_map(int fd, t_mlx *mlxdata, t_mapctr *mapctr);
 void		fdf_free_map(t_point **map);
 void		fdf_print_map(t_mapctr mapctr);
 void		fdf_findrange(t_mapctr *mapctr);
@@ -77,6 +77,6 @@ long		fdf_colorgradient_indice(t_mlx *mlxdata, int x, int y);
 void		fdf_colormap(t_mlx *mlxdata, int *colors);
 int			fdf_put_pixel(t_mlx *mlxdata, int color, char *pixel);
 void		fdf_bresenham(t_mlx *data, t_point start, t_point end);
-void		fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg);
-
+void		fdf_map_fill(t_mlx *data, float deg, float ix, float iy);
+int			fdf_map_to_screen(t_mlx *data, float deg, float ix, float iy);
 #endif
