@@ -6,11 +6,32 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 10:50:09 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:23:44 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	fdf_relief(t_mlx *mlxdata, t_mapctr *mapctr)
+{
+	long	x;
+	long	y;
+	float	angle;
+
+	y = -1;
+	while (++y < mapctr->height)
+	{
+		x = -1;
+		while (++x < mapctr->width)
+		{
+			((mapctr->map)[x][y]).x += 0;
+			((mapctr->map)[x][y]).y += 0;
+			// printf("((mapctr->range = %ld) - (mapctr->max - mapctr->map[x][y].z = %ld)) / (mapctr->range = %ld)\n\n", mapctr->range, mapctr->max - (long)(mapctr->map[x][y].z), mapctr->range);
+			// printf("Calcul result: %ld(%ld)\n", (mapctr->range - (mapctr->max - mapctr->map[x][y].z)) / mapctr->range);
+			printf("Result: %f\n", ((mapctr->range - (mapctr->max - (long)(mapctr->map[x][y].z))) / mapctr->range) * 0.75);
+		}
+	}
+}
 
 int	fdf(char *file)
 {
@@ -21,12 +42,13 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	scale = 18;
+	scale = 35;
 	mlxdata.scale = scale;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
 		fdf_findrange(&(mlxdata.mapctr));
+		fdf_relief(&mlxdata, &(mlxdata.mapctr));
 		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
 		// 		(float)mlxdata.mapctr.width * scale, \
 		// 		(float)mlxdata.mapctr.height * scale, "FdF");

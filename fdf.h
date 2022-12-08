@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 10:56:33 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:17:15 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_mapctr
 	t_point		**map;
 	int			width;
 	int			height;
-	int			min;
-	int			max;
+	long		min;
+	long		max;
 	long		range;
 }				t_mapctr;
 
