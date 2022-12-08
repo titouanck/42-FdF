@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 13:40:17 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/07 23:51:37 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,16 @@ void	fdf_bresenham(t_mlx *data, t_point start, t_point end)
 		yrange = yrange * -1;
 	xrange = ((int)(xrange * 100)) / 100;
 	yrange = ((int)(yrange * 100)) / 100;
-	printf("xrange: %f | yrange = %f\n", xrange, yrange);
+	// printf("xrange: %f | yrange = %f\n", xrange, yrange);
 	if (xrange > yrange)
 	{
-		ft_printf("bresenham: IF\n");
+		// ft_printf("bresenham: IF\n");
 		ratio = yrange / xrange;
 		fdf_bresenham_if(data, start, end, ratio);
 	}
 	else
 	{
-		ft_printf("bresenham: ELSE\n");
+		// ft_printf("bresenham: ELSE\n");
 		ratio = xrange / yrange;
 		fdf_bresenham_else(data, start, end, ratio);
 	}
