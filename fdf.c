@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 16:25:25 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:57:04 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	fdf_relief(t_mlx *mlxdata, t_mapctr *mapctr)
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			((mapctr->map)[x][y]).x -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
-			((mapctr->map)[x][y]).y -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale) * PERSPECTIVE) / 2);
+			((mapctr->map)[x][y]).x -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale)) / 2);
+			((mapctr->map)[x][y]).y -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(mlxdata->scale, mlxdata->scale)) / 2);
 		}
 	}
 }
@@ -41,7 +41,7 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	scale = 20;
+	scale = 6;
 	mlxdata.scale = scale;
 	mlxdata.ptr = mlx_init();
 	if (fdf_fileoperations(file, &mlxdata, scale))

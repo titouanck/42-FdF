@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 16:43:39 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:58:05 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 	float	xorigin;
 	float	yorigin;
 	
-	xorigin = (((float)mapctr->width - 1.0) / 2) * scale * PERSPECTIVE;
-	yorigin = (((float)mapctr->height - 1.0) / 2) * scale * PERSPECTIVE;
+	xorigin = (((float)mapctr->width - 1.0) / 2) * scale;
+	yorigin = (((float)mapctr->height - 1.0) / 2) * scale;
 	y = -1;
 	while (++y < mapctr->height)
 	{
@@ -58,7 +58,7 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 			{
 				((mapctr->map)[x][y]).z = (float)ft_atoi(line + i);
 				((mapctr->map)[x][y]).x = 600;
-				((mapctr->map)[x][y]).x += ((x * scale * PERSPECTIVE) - xorigin) * cos(deg / 57.2958) + ((y * scale * PERSPECTIVE) - yorigin) * (sin(deg / 57.2958) * -1);
+				((mapctr->map)[x][y]).x += ((x * scale) - xorigin) * cos(deg / 57.2958) + ((y * scale) - yorigin) * (sin(deg / 57.2958) * -1);
 				((mapctr->map)[x][y]).y = 600;
 				((mapctr->map)[x][y]).y += ((x * scale) - xorigin) * sin(deg / 57.2958) + ((y * scale) - yorigin) * cos(deg / 57.2958);
 				x++;
@@ -91,6 +91,6 @@ t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
 		i++;
 	}
 	mapctr->map = map;
-	fdf_map_fill(mapctr, fd, scale, 45);
+	fdf_map_fill(mapctr, fd, scale, 90 * 2);
 	return (map);
 }

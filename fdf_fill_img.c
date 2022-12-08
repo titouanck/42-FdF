@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:22 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 15:58:20 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 17:57:35 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	fdf_fill_img(t_mlx *mlxdata, float scale)
 		while (x < mlxdata->mapctr.width)
 		{
 			current = mlxdata->mapctr.map[x][y];
+			printf("Pixel: [%3f][%2f]\n", (mlxdata->mapctr.map[x][y]).x, (mlxdata->mapctr.map[x][y]).y);
 			fdf_put_pixel(mlxdata, current.color, mlxdata->img.str + \
 					((long)(current.y)*(long)mlxdata->img.size_line) + \
 					((long)(current.x)*(long)(mlxdata->img.bpp / 8)));
