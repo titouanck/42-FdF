@@ -1,0 +1,4 @@
+1. Setup la map
+2. Faire tourner la map
+3. Incliner la map
+4. Mettre en relief

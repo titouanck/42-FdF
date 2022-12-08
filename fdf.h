@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 18:17:15 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:37:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
 
-# define WIN_WIDTH 2560
+# define WIN_WIDTH 1600
 # define WIN_HEIGHT 1400
 
 typedef struct s_point

@@ -6,11 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 18:18:23 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 19:11:14 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+
 
 static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 {
@@ -40,7 +42,7 @@ static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 	}
 }
 
-static void	fdf_map_fill_xy(t_mapctr *mapctr, float scale, float deg)
+static void	fdf_map_fill_xy(t_mapctr *mapctr, float scale)
 {
 	long	x;
 	long	y;
@@ -55,22 +57,95 @@ static void	fdf_map_fill_xy(t_mapctr *mapctr, float scale, float deg)
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			((mapctr->map)[x][y]).x = 600;
-			((mapctr->map)[x][y]).x += ((x * scale) - xorigin) * \
-					cos(deg / 57.2958) + ((y * scale) - yorigin) * \
+			((mapctr->map)[x][y]).x = x * scale - xorigin;
+			((mapctr->map)[x][y]).y = y * scale - yorigin;
+		}
+	}
+}
+
+static void	fdf_map_rotation(t_mapctr *mapctr, float deg)
+{
+	long	x;
+	long	y;
+	float	old_x;
+
+	y = -1;
+	while (++y < mapctr->height)
+	{
+		x = -1;
+		while (++x < mapctr->width)
+		{
+			old_x = ((mapctr->map)[x][y]).x;
+			((mapctr->map)[x][y]).x = old_x * \
+					cos(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
 					(sin(deg / 57.2958) * -1);
-			((mapctr->map)[x][y]).y = 600;
-			((mapctr->map)[x][y]).y += ((x * scale) - xorigin) * \
-					sin(deg / 57.2958) + ((y * scale) - yorigin) * \
+			((mapctr->map)[x][y]).y = old_x * \
+					sin(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
 					cos(deg / 57.2958);
+		}
+	}
+}
+
+static void	fdf_map_inclinaison(t_mapctr *mapctr, long ix, long iy)
+{
+	long	x;
+	long	y;
+
+	y = -1;
+	while (++y < mapctr->height)
+	{
+		x = -1;
+		while (++x < mapctr->width)
+		{
+			((mapctr->map)[x][y]).x *= ix;
+			((mapctr->map)[x][y]).y *= iy;
+		}
+	}
+}
+
+static void	fdf_map_center(t_mapctr *mapctr)
+{
+	long	x;
+	long	y;
+
+	y = -1;
+	while (++y < mapctr->height)
+	{
+		x = -1;
+		while (++x < mapctr->width)
+		{
+			((mapctr->map)[x][y]).x += WIN_WIDTH / 2;
+			((mapctr->map)[x][y]).y += WIN_HEIGHT / 2;
+		}
+	}
+}
+
+static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
+{
+	long	x;
+	long	y;
+
+	y = -1;
+	while (++y < mapctr->height)
+	{
+		x = -1;
+		while (++x < mapctr->width)
+		{
+			((mapctr->map)[x][y]).x -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(scale, scale)) / 2);
+			((mapctr->map)[x][y]).y -= ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * 0.5) * ((hypot(scale, scale)) / 2);
 		}
 	}
 }
 
 void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 {
+	fdf_map_fill_xy(mapctr, scale);
 	fdf_map_fill_z(mapctr, fd);
-	fdf_map_fill_xy(mapctr, scale, deg);
+	fdf_findrange(mapctr);
+	fdf_map_rotation(mapctr, deg);
+	fdf_map_inclinaison(mapctr, 1, 1);
+	fdf_map_relief(mapctr, scale, deg);
+	fdf_map_center(mapctr);
 }
 
 t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
@@ -92,6 +167,6 @@ t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
 		i++;
 	}
 	mapctr->map = map;
-	fdf_map_fill(mapctr, fd, scale, 45);
+	fdf_map_fill(mapctr, fd, scale, 0);
 	return (map);
 }
