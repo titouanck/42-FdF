@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 14:43:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:43:39 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,25 @@ static float	deg_conversion(float deg)
 	return (angle);
 }
 
+# define X 20
+# define Y 20
+
+# define XX 40
+# define YY 80
+
 static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 {
 	size_t	x;
 	size_t	y;
 	size_t	i;
 	char	*line;
+	float	tmp;
 	float	angle;
-
-	angle = deg_conversion(deg);
+	float	xorigin;
+	float	yorigin;
+	
+	xorigin = (((float)mapctr->width - 1.0) / 2) * scale * PERSPECTIVE;
+	yorigin = (((float)mapctr->height - 1.0) / 2) * scale * PERSPECTIVE;
 	y = -1;
 	while (++y < mapctr->height)
 	{
@@ -47,36 +57,10 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 			if (line[i] != ' ' && line[i] != '\n')
 			{
 				((mapctr->map)[x][y]).z = (float)ft_atoi(line + i);
-				((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale * PERSPECTIVE, mapctr->height * scale * PERSPECTIVE)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2)); // + ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z)) * 1) / mapctr->range) * (((hypot(scale, scale) * PERSPECTIVE) / 2) * 0.8));
-				((mapctr->map)[x][y]).y = ((hypot(scale, scale) * PERSPECTIVE) / 2) + (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
-				// printf("Calcul result: %f\n", ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z))) / mapctr->range)));
-				// printf("Calcul result: %f(%f)\n", ( (( (mapctr->range - (mapctr->max - mapctr->map[x][y].z))) , mapctr->range)));
-				// if (angle >= 0)
-				// {
-				// 	if (angle <= 1)
-				// 	{
-				// 		((mapctr->map)[x][y]).x = 1000					+	((x * scale) * (1 - angle))				-	((y * scale) * angle);
-				// 		((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - angle))				+	((x * scale) * angle);
-				// 	}
-				// 	else
-				// 	{
-				// 		((mapctr->map)[x][y]).x = 1000	-	(y * scale)	-	((x * scale) * ((angle - 1)))			+	((y * scale) * (angle - 1));
-				// 		((mapctr->map)[x][y]).y = 400	+	(x * scale)	-	((y * scale) * ((angle - 1)))			-	((x * scale) * (angle - 1));
-				// 	}
-				// }
-				// else
-				// {
-				// 	if (angle >= -1)
-				// 	{
-				// 		((mapctr->map)[x][y]).x = 1000 					+	((x * scale) * (1 - (angle * -1)))		+	((y * scale) * (angle * -1));
-				// 		((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - (angle * -1)))		-	((x * scale) * (angle * -1));
-				// 	}
-				// 	else
-				// 	{
-				// 		((mapctr->map)[x][y]).x = 1000	+	(y * scale) -	((x * scale) * (((angle + 1) * -1)))	-	((y * scale) * ((angle + 1) * -1));
-				// 		((mapctr->map)[x][y]).y = 400	-	(x * scale) -	((y * scale) * (((angle + 1) * -1)))	+	((x * scale) * ((angle + 1) * -1));
-				// 	}
-				// }
+				((mapctr->map)[x][y]).x = 600;
+				((mapctr->map)[x][y]).x += ((x * scale * PERSPECTIVE) - xorigin) * cos(deg / 57.2958) + ((y * scale * PERSPECTIVE) - yorigin) * (sin(deg / 57.2958) * -1);
+				((mapctr->map)[x][y]).y = 600;
+				((mapctr->map)[x][y]).y += ((x * scale) - xorigin) * sin(deg / 57.2958) + ((y * scale) - yorigin) * cos(deg / 57.2958);
 				x++;
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
@@ -107,6 +91,6 @@ t_point	**fdf_generate_map(int fd, t_mapctr *mapctr, float scale)
 		i++;
 	}
 	mapctr->map = map;
-	fdf_map_fill(mapctr, fd, scale, 0);
+	fdf_map_fill(mapctr, fd, scale, 45);
 	return (map);
 }

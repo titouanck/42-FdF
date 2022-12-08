@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 14:46:28 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 16:25:25 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ int	fdf(char *file)
 	if (fdf_fileoperations(file, &mlxdata, scale))
 	{
 		fdf_findrange(&(mlxdata.mapctr));
-		fdf_relief(&mlxdata, &(mlxdata.mapctr));
+		// fdf_relief(&mlxdata, &(mlxdata.mapctr));
+		// mlxdata.win = mlx_new_window(mlxdata.ptr, \
+		// 		mlxdata.mapctr.width * scale * PERSPECTIVE / sqrt(2) + mlxdata.mapctr.height * scale * PERSPECTIVE / sqrt(2), \
+		// 		mlxdata.mapctr.height * scale / sqrt(2) + mlxdata.mapctr.width * scale / sqrt(2), "FdF");
 		mlxdata.win = mlx_new_window(mlxdata.ptr, \
-				mlxdata.mapctr.width * scale * PERSPECTIVE / sqrt(2) + mlxdata.mapctr.height * scale * PERSPECTIVE / sqrt(2), \
-				mlxdata.mapctr.height * scale / sqrt(2) + mlxdata.mapctr.width * scale / sqrt(2), "FdF");
+				WIN_WIDTH, \
+				WIN_HEIGHT, "FdF");
 		colors = fdf_colorgradient();
 		mlxdata.colors = colors;
 		fdf_colormap(&mlxdata, colors);

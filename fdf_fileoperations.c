@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 11:41:46 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 15:11:40 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,12 @@ int	fdf_fileoperations(char *file, t_mlx *mlxdata, float scale)
 	// mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
 	// 		hypotf(mlxdata->mapctr.width * scale, mlxdata->mapctr.height * scale), \
 	// 		hypotf(mlxdata->mapctr.height * scale, mlxdata->mapctr.width * scale));
+	// mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
+	// 		mlxdata->mapctr.width * scale * PERSPECTIVE / sqrt(2) + mlxdata->mapctr.height * scale * PERSPECTIVE / sqrt(2), \
+	// 		mlxdata->mapctr.width * scale / sqrt(2) + mlxdata->mapctr.height * scale / sqrt(2));
 	mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
-			mlxdata->mapctr.width * scale * PERSPECTIVE / sqrt(2) + mlxdata->mapctr.height * scale * PERSPECTIVE / sqrt(2), \
-			mlxdata->mapctr.width * scale / sqrt(2) + mlxdata->mapctr.height * scale / sqrt(2));
+			WIN_WIDTH * 0.8, \
+			WIN_HEIGHT * 0.8);
 	// mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
 	// 		WIN_WIDTH, \
 	// 		WIN_HEIGHT);
