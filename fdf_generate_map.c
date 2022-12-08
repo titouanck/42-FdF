@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 09:50:51 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:58:25 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,34 @@ static void	fdf_map_fill(t_mapctr *mapctr, int fd, float scale, float deg)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				// ((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale, mapctr->height * scale)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2));
-				// ((mapctr->map)[x][y]).y = (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
-				if (angle >= 0)
-				{
-					if (angle <= 1)
-					{
-						((mapctr->map)[x][y]).x = 1000					+	((x * scale) * (1 - angle))				-	((y * scale) * angle);
-						((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - angle))				+	((x * scale) * angle);
-					}
-					else
-					{
-						((mapctr->map)[x][y]).x = 1000	-	(y * scale)	-	((x * scale) * ((angle - 1)))			+	((y * scale) * (angle - 1));
-						((mapctr->map)[x][y]).y = 400	+	(x * scale)	-	((y * scale) * ((angle - 1)))			-	((x * scale) * (angle - 1));
-					}
-				}
-				else
-				{
-					if (angle >= -1)
-					{
-						((mapctr->map)[x][y]).x = 1000 					+	((x * scale) * (1 - (angle * -1)))		+	((y * scale) * (angle * -1));
-						((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - (angle * -1)))		-	((x * scale) * (angle * -1));
-					}
-					else
-					{
-						((mapctr->map)[x][y]).x = 1000	+	(y * scale) -	((x * scale) * (((angle + 1) * -1)))	-	((y * scale) * ((angle + 1) * -1));
-						((mapctr->map)[x][y]).y = 400	-	(x * scale) -	((y * scale) * (((angle + 1) * -1)))	+	((x * scale) * ((angle + 1) * -1));
-					}
-				}
+				((mapctr->map)[x][y]).x = ((hypot(mapctr->height * scale * PERSPECTIVE, mapctr->height * scale * PERSPECTIVE)) / 2) + (x * ((hypot(scale, scale) * PERSPECTIVE) / 2)) - (y * ((hypot(scale, scale) * PERSPECTIVE) / 2));
+				((mapctr->map)[x][y]).y = (x * ((hypot(scale, scale)) / 2)) + (y * ((hypot(scale, scale)) / 2));
+				// if (angle >= 0)
+				// {
+				// 	if (angle <= 1)
+				// 	{
+				// 		((mapctr->map)[x][y]).x = 1000					+	((x * scale) * (1 - angle))				-	((y * scale) * angle);
+				// 		((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - angle))				+	((x * scale) * angle);
+				// 	}
+				// 	else
+				// 	{
+				// 		((mapctr->map)[x][y]).x = 1000	-	(y * scale)	-	((x * scale) * ((angle - 1)))			+	((y * scale) * (angle - 1));
+				// 		((mapctr->map)[x][y]).y = 400	+	(x * scale)	-	((y * scale) * ((angle - 1)))			-	((x * scale) * (angle - 1));
+				// 	}
+				// }
+				// else
+				// {
+				// 	if (angle >= -1)
+				// 	{
+				// 		((mapctr->map)[x][y]).x = 1000 					+	((x * scale) * (1 - (angle * -1)))		+	((y * scale) * (angle * -1));
+				// 		((mapctr->map)[x][y]).y = 400					+	((y * scale) * (1 - (angle * -1)))		-	((x * scale) * (angle * -1));
+				// 	}
+				// 	else
+				// 	{
+				// 		((mapctr->map)[x][y]).x = 1000	+	(y * scale) -	((x * scale) * (((angle + 1) * -1)))	-	((y * scale) * ((angle + 1) * -1));
+				// 		((mapctr->map)[x][y]).y = 400	-	(x * scale) -	((y * scale) * (((angle + 1) * -1)))	+	((x * scale) * ((angle + 1) * -1));
+				// 	}
+				// }
 				((mapctr->map)[x++][y]).z = (float)ft_atoi(line + i);
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;

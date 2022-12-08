@@ -6,18 +6,37 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 23:51:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:43:42 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static long	fdf_colorgradient_z(t_mlx *mlxdata, long point)
+{
+	long	colors;
+	long	range;
+	long	max;
+	long	indice;
+
+	colors = 510;
+	range = mlxdata->mapctr.range;
+	max = mlxdata->mapctr.max;
+	indice = ((range - (max - point)) * colors) / range;
+	return (indice);
+}
+
 static void	fdf_bresenham_if(t_mlx *data, \
 		t_point start, t_point end, float ratio)
 {
 	t_point	current;
+	float	zratio;
+	float	steps;
 	float	i;
 
+	// steps = end.x - start.x;
+	zratio = end.z - start.z;
+	zratio = zratio / abs(end.x - start.x);
 	current = start;
 	i = 0;
 	while (roundf(current.x) != roundf(end.x))
@@ -30,6 +49,8 @@ static void	fdf_bresenham_if(t_mlx *data, \
 			current.y = start.y + (ratio * i);
 		else
 			current.y = start.y - (ratio * i);
+		current.z = start.z + (zratio * i);
+		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
 		fdf_put_pixel(data, current.color, data->img.str + \
 				((long)(current.y)*(long)data->img.size_line) + \
 				((long)(current.x)*(long)(data->img.bpp / 8)));
@@ -41,13 +62,14 @@ static void	fdf_bresenham_else(t_mlx *data, \
 		t_point start, t_point end, float ratio)
 {
 	t_point	current;
+	float	zratio;
 	float	i;
 
+	zratio = end.z - start.z / (end.x - start.x);
 	current = start;
 	i = 0;
 	while (roundf(current.y) != roundf(end.y))
 	{
-		// printf("current.x = %d / %d | current.y = %d / %d | ratio = %f\n", current.x, end.x, current.y, end.y, ratio);
 		if (current.y < end.y)
 			current.y += 1;
 		else
@@ -56,6 +78,7 @@ static void	fdf_bresenham_else(t_mlx *data, \
 			current.x = start.x + (ratio * i);
 		else
 			current.x = start.x - (ratio * i);
+		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
 		fdf_put_pixel(data, current.color, data->img.str + \
 				((long)(current.y)*(long)data->img.size_line) + \
 				((long)(current.x)*(long)(data->img.bpp / 8)));
@@ -77,16 +100,13 @@ void	fdf_bresenham(t_mlx *data, t_point start, t_point end)
 		yrange = yrange * -1;
 	xrange = ((int)(xrange * 100)) / 100;
 	yrange = ((int)(yrange * 100)) / 100;
-	// printf("xrange: %f | yrange = %f\n", xrange, yrange);
 	if (xrange > yrange)
 	{
-		// ft_printf("bresenham: IF\n");
 		ratio = yrange / xrange;
 		fdf_bresenham_if(data, start, end, ratio);
 	}
 	else
 	{
-		// ft_printf("bresenham: ELSE\n");
 		ratio = xrange / yrange;
 		fdf_bresenham_else(data, start, end, ratio);
 	}

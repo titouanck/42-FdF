@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/07 13:57:22 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:56:33 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
 
-# define PERSPECTIVE 1
+# define PERSPECTIVE 2
 
 # define WIN_WIDTH 2560
 # define WIN_HEIGHT 1400
@@ -60,6 +60,8 @@ typedef struct s_mlx
 	void		*win;
 	t_mapctr	mapctr;
 	t_mlximg	img;
+	float		scale;
+	int			*colors;
 }				t_mlx;
 
 /* Generic utility functions */
