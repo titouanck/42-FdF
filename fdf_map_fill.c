@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 12:06:07 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:40:48 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static void	fdf_map_rotation(t_mapctr *mapctr, float deg)
 			old_x = ((mapctr->map)[x][y]).x;
 			((mapctr->map)[x][y]).x = old_x * \
 					cos(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					(sin(deg / 57.2958) * -1);
+					(sin(deg / 57.2958) * -1) + mapctr->translatex;
 			((mapctr->map)[x][y]).y = old_x * \
 					sin(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					cos(deg / 57.2958);
+					cos(deg / 57.2958) + mapctr->translatey;
 		}
 	}
 }
@@ -75,6 +75,7 @@ static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
 	long	y;
 	float	in_range;
 
+	(void)deg;
 	y = -1;
 	while (++y < mapctr->height)
 	{

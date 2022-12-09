@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 11:53:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:46:13 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	fdf(char *file)
 		fdf_colormap(&data, data.colors);
 		fdf_default(&data);
 		mlx_key_hook(data.win, (fdf_keypressed), &data);
+		mlx_expose_hook(data.win, fdf_keypressed, &data);
+		mlx_mouse_hook(data.win, fdf_keypressed, &data);
 		mlx_loop(data.ptr);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 10:54:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:09:43 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	fdf_fileoperations(char *file, t_mlx *mlxdata)
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(ERR_OPEN), 0);
-	fdf_generate_map(fd, mlxdata, &(mlxdata->mapctr));
+	fdf_generate_map(fd, &(mlxdata->mapctr));
 	close(fd);
 	if (!mlxdata->mapctr.map)
 		return (ft_printf(ERR_ALLOC), 0);

@@ -6,90 +6,91 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 12:05:22 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 13:33:02 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fdf_clear_img(t_mlx *data, t_mapctr *mapctr)
+static int	fdf_zoom(int key, t_mlx *data)
 {
-	long	x;
-	long	y;
-	t_point	current;
-
-	y = -1;
-	while (++y < mapctr->height)
-	{
-		x = -1;
-		while (++x < mapctr->width)
-		{
-			current = data->mapctr.map[x][y];
-			fdf_put_pixel(data, BLACK, data->img.str + \
-				((long)(current.y)*(long)data->img.size_line) + \
-				((long)(current.x)*(long)(data->img.bpp / 8)));
-			if (x > 0)
-				fdf_clearlines(data, data->mapctr.map[x - 1][y], current);
-			if (y > 0)
-				fdf_clearlines(data, data->mapctr.map[x][y - 1], current);
-		}
-	}
-}
-
-int	fdf_default(void *param)
-{
-	t_mlx	*data;
-
-	data = (t_mlx *)param;
-	fdf_clear_img(data, &(data->mapctr));
-	data->scale = fdf_get_scale(data);
-	data->deg = 45;
-	data->ix = 1;
-	data->iy = 0.5;
-	fdf_map_to_screen(data, data->deg, data->ix, data->iy);
-}
-
-static int	fdf_zoom(int key, void *param)
-{
-	t_mlx	*data;
-
-	data = (t_mlx *)param;
-	if ((key == 65362 || key == 126) && data->scale < WIN_WIDTH)
+	if ((key == 61 || key == 65451) && data->scale < WIN_WIDTH)
 	{
 		fdf_clear_img(data, &(data->mapctr));
-		(data->scale)++;
+		(data->scale) *= 1.1;
 		mlx_clear_window(data->ptr, data->win);
-		fdf_map_to_screen(data, data->deg, data->ix, data->iy);
+		fdf_map_to_screen(data);
 	}
-	else if ((key == 65364 || key == 125) && data->scale > 1)
+	else if ((key == 45 || key == 65453) && data->scale > 1)
 	{
 		fdf_clear_img(data, &(data->mapctr));
-		(data->scale)--;
+		(data->scale) *= 0.95;
 		mlx_clear_window(data->ptr, data->win);
-		fdf_map_to_screen(data, data->deg, data->ix, data->iy);
+		fdf_map_to_screen(data);
 	}
 	return (1);
 }
 
-static int	fdf_rotate(int key, void *param)
+static int	fdf_rotate(int key, t_mlx *data)
 {
-	t_mlx	*data;
-
-	data = (t_mlx *)param;
 	if ((key == 65363 || key == 124) && data->scale < WIN_WIDTH)
 	{
 		fdf_clear_img(data, &(data->mapctr));
 		(data->deg)++;
 		mlx_clear_window(data->ptr, data->win);
-		fdf_map_to_screen(data, data->deg, data->ix, data->iy);
+		fdf_map_to_screen(data);
 	}
 	else if ((key == 65361 || key == 123) && data->scale > 1)
 	{
 		fdf_clear_img(data, &(data->mapctr));
 		(data->deg)--;
 		mlx_clear_window(data->ptr, data->win);
-		fdf_map_to_screen(data, data->deg, data->ix, data->iy);
+		fdf_map_to_screen(data);
 	}
+	return (1);
+}
+
+static int	fdf_translate(int key, t_mlx *data)
+{
+	if (key == 119)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->mapctr.translatey) += 10;
+	}
+	else if (key == 115)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->mapctr.translatey) -= 10;
+	}
+	else if (key == 97)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->mapctr.translatex) += 10;
+	}
+	else if (key == 100)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->mapctr.translatex) -= 10;
+	}
+	mlx_clear_window(data->ptr, data->win);
+	fdf_map_to_screen(data);
+	return (1);
+}
+
+static int fdf_incline(int key, t_mlx *data)
+{
+	if (key == 65362)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->iy) += 0.05;
+	}
+	else if (key == 65364)
+	{
+		fdf_clear_img(data, &(data->mapctr));
+		(data->iy) -= 0.05;
+	}
+	mlx_clear_window(data->ptr, data->win);
+	fdf_map_to_screen(data);
 	return (1);
 }
 
@@ -101,8 +102,12 @@ int	fdf_keypressed(int key, void *param)
 	printf("param = %p | key : %d\n", param, key);
 	if (key == 65361 || key == 123 || key == 65363 || key == 124)
 		fdf_rotate(key, data);
-	else if (key == 65362 || key == 126 || key == 65364 || key == 125)
+	else if (key == 61 || key == 45 || key == 65451 || key == 65453)
 		fdf_zoom(key, data);
+	else if (key == 119 || key == 115 || key == 97 || key == 100)
+		fdf_translate(key, data);
+	else if (key == 65362 || key == 65364)
+		fdf_incline(key, data);
 	else if (key == 15 || key == 114)
 	{
 		fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
@@ -113,4 +118,5 @@ int	fdf_keypressed(int key, void *param)
 		fdf_free_all(data);
 		exit(0);
 	}
+	return (1);
 }

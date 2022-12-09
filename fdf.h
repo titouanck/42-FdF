@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 11:56:40 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 14:00:48 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_mapctr
 	long		min;
 	long		max;
 	long		range;
+	long		translatex;
+	long		translatey;
 }				t_mapctr;
 
 typedef struct s_mlximg
@@ -77,7 +79,7 @@ void		ft_colored_window(int w, int h);
 
 /* FdF utility functions */
 int			fdf_fileoperations(char *file, t_mlx *data);
-t_point		**fdf_generate_map(int fd, t_mlx *data, t_mapctr *mapctr);
+t_point		**fdf_generate_map(int fd, t_mapctr *mapctr);
 void		fdf_free_map(t_point **map);
 void		fdf_print_map(t_mapctr mapctr);
 void		fdf_findrange(t_mapctr *mapctr);
@@ -90,10 +92,11 @@ void		fdf_bresenham(t_mlx *data, t_point start, t_point end);
 void		fdf_clearlines(t_mlx *data, t_point start, t_point end);
 void		fdf_map_fill(t_mlx *data);
 void		fdf_map_fill_xy(t_mapctr *mapctr, float scale);
-int			fdf_map_to_screen(t_mlx *data, float deg, float ix, float iy);
+int			fdf_map_to_screen(t_mlx *data);
 float		fdf_get_scale(t_mlx *data);
 int			fdf_keypressed(int key, void *param);
 int			fdf_default(void *param);
 void		fdf_free_all(t_mlx *data);
+void		fdf_clear_img(t_mlx *data, t_mapctr *mapctr);
 
 #endif

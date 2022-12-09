@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 11:56:59 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:09:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	fdf_map_fill_xy(t_mapctr *mapctr, float scale)
 	}
 }
 
-t_point	**fdf_generate_map(int fd, t_mlx *mlxdata, t_mapctr *mapctr)
+t_point	**fdf_generate_map(int fd, t_mapctr *mapctr)
 {
 	t_point		**map;
 	long		i;
