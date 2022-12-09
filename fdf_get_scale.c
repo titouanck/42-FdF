@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_free_map.c                                     :+:      :+:    :+:   */
+/*   fdf_get_scale.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/30 21:53:02 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/06 15:17:09 by tchevrie         ###   ########.fr       */
+/*   Created: 2022/12/09 11:39:57 by tchevrie          #+#    #+#             */
+/*   Updated: 2022/12/09 11:40:16 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_free_map(t_point **map)
+float	fdf_get_scale(t_mlx *data)
 {
-	size_t	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		map[i] = NULL;
-		i++;
-	}
-	free(map);
+	float	scalex;
+	float	scaley;
+	
+	scalex = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.height);
+	scaley = WIN_HEIGHT / hypotf(data->mapctr.width, data->mapctr.height);
+	if (scalex < scaley)
+		return (scalex);
+	else
+		return (scaley);
+	
 }

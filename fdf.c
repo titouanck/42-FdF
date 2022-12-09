@@ -6,51 +6,42 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 00:40:42 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 11:42:05 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	fdf_get_scale(t_mlx *data)
+static void	fdf_initialisation(t_mlx *data)
 {
-	float	scalex;
-	float	scaley;
-	
-	scalex = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.height);
-	scaley = WIN_HEIGHT / hypotf(data->mapctr.width, data->mapctr.height);
-	// return (0.5);
-	if (scalex < scaley)
-		return (scalex);
-	else
-		return (scaley);
-	// printf("scale = %f ou %f\n", scalex, scaley);
-	
+	data->ptr = NULL;
+	data->win = NULL;
+	data->mapctr.map = NULL;
+	data->img.ptr = NULL;
+	data->img.str = NULL;
+	data->colors = NULL;
 }
 
 int	fdf(char *file)
 {
-	t_mlx	mlxdata;
+	t_mlx	data;
 
 	if (!file)
 		return (0);
-	mlxdata.ptr = mlx_init();
-	if (fdf_fileoperations(file, &mlxdata))
+	fdf_initialisation(&data);
+	data.ptr = mlx_init();
+	if (fdf_fileoperations(file, &data))
 	{
-		mlxdata.win = mlx_new_window(mlxdata.ptr, \
+		data.win = mlx_new_window(data.ptr, \
 				WIN_WIDTH, \
 				WIN_HEIGHT, "FdF");
-		mlxdata.colors = fdf_colorgradient();
-		if (!(mlxdata.colors))
+		data.colors = fdf_colorgradient();
+		if (!(data.colors))
 			return (ft_printf(ERR_ALLOC), 0);
-		fdf_colormap(&mlxdata, mlxdata.colors);
-		mlxdata.scale = fdf_get_scale(&mlxdata);
-		mlxdata.deg = 45;
-		mlxdata.ix = 1;
-		mlxdata.iy = 0.5;
-		fdf_map_to_screen(&mlxdata, mlxdata.deg, mlxdata.ix, mlxdata.iy);
-		mlx_key_hook(mlxdata.win, (* fdf_keypressed), &mlxdata);
-		mlx_loop(mlxdata.ptr);
+		fdf_colormap(&data, data.colors);
+		fdf_default(&data);
+		mlx_key_hook(data.win, (* fdf_keypressed), &data);
+		mlx_loop(data.ptr);
 	}
 	return (1);
 }
