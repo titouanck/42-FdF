@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 15:05:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 18:14:32 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:36:17 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ static long	fdf_colorgradient_z(t_mlx *mlxdata, float point)
 	max = mlxdata->mapctr.max;
 	indice = ((range - (max - point)) * colors) / range;
 	return (roundf(indice));
+}
+
+static void	fdf_call_put_pixel(t_mlx *data, t_point current)
+{
+	fdf_put_pixel(data, current.color, data->img.str + \
+				((long)(current.y)*(long)data->img.size_line) + \
+				((long)(current.x)*(long)(data->img.bpp / 8)));
 }
 
 static void	fdf_bresenham_if(t_mlx *data, \
@@ -49,14 +56,11 @@ static void	fdf_bresenham_if(t_mlx *data, \
 		else
 			current.y = start.y - (ratio * i);
 		if (zratio < 0)
-			current.z = start.z - (fabs(zratio) * i);
+			current.z = start.z - (fabs(zratio) * i++);
 		else
-			current.z = start.z + (fabs(zratio) * i);
+			current.z = start.z + (fabs(zratio) * i++);
 		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
-		fdf_put_pixel(data, current.color, data->img.str + \
-				((long)(current.y)*(long)data->img.size_line) + \
-				((long)(current.x)*(long)(data->img.bpp / 8)));
-		i++;
+		fdf_call_put_pixel(data, current);
 	}
 }
 
@@ -83,14 +87,11 @@ static void	fdf_bresenham_else(t_mlx *data, \
 		else
 			current.x = start.x - (ratio * i);
 		if (zratio < 0)
-			current.z = start.z - (fabs(zratio) * i);
+			current.z = start.z - (fabs(zratio) * i++);
 		else
-			current.z = start.z + (fabs(zratio) * i);
+			current.z = start.z + (fabs(zratio) * i++);
 		current.color = data->colors[fdf_colorgradient_z(data, current.z)];
-		fdf_put_pixel(data, current.color, data->img.str + \
-				((long)(current.y)*(long)data->img.size_line) + \
-				((long)(current.x)*(long)(data->img.bpp / 8)));
-		i++;
+		fdf_call_put_pixel(data, current);
 	}
 }
 

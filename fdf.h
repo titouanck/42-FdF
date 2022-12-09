@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 15:46:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 16:01:58 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <mlx.h>
 # include <math.h>
 # include "ft_colors.h"
+# include "keyboardvalues.h"
 
 # define ERR_OPEN "FdF: failed to open file.\n"
 # define ERR_FILE "FdF: map error.\n"
@@ -31,6 +32,8 @@
 #  define WIN_WIDTH 1560
 #  define WIN_HEIGHT 1400
 # endif
+
+# define MINUS 1
 
 typedef struct s_point
 {
