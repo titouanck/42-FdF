@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 20:01:43 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 00:23:19 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:07:50 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	fdf_put_pixel(t_mlx *data, int color, char *pixel)
 {
 	t_color	tcolor;
 
-	if (pixel < data->img.str || pixel >= (data->img.str + ((WIN_HEIGHT - 1) * data->img.size_line) + ((WIN_WIDTH - 1) * (data->img.bpp / 8))))
+	if (pixel < data->img.str || pixel >= (data->img.str + \
+			((WIN_HEIGHT - 1) * data->img.size_line) + \
+			((WIN_WIDTH - 1) * (data->img.bpp / 8))))
 		return (0);
 	tcolor = rrgb(color);
 	if (data->img.endian == 1)

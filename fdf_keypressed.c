@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 11:38:28 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 12:05:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int	fdf_rotate(int key, void *param)
 	return (1);
 }
 
-void	fdf_keypressed(int key, void *param)
+int	fdf_keypressed(int key, void *param)
 {
 	t_mlx	*data;
 
@@ -106,7 +106,7 @@ void	fdf_keypressed(int key, void *param)
 	else if (key == 15 || key == 114)
 	{
 		fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
-		fdf_default(data);		
+		fdf_default(data);
 	}
 	else if (key == 65307)
 	{
