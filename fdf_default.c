@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:58:18 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 16:24:43 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:58:24 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	fdf_default(void *param)
 	data->iy = 0.5;
 	data->mapctr.translatex = 0;
 	data->mapctr.translatey = 0;
-	data->relief = 1.25;
+	data->relief = hypotf(data->mapctr.width, data->mapctr.width) / 15;
 	fdf_map_to_screen(data);
 	return (1);
 }
