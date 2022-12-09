@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:38:31 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 11:38:52 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 19:21:13 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	fdf_free_all(t_mlx *data)
 	data->img.ptr = NULL;
 	if (data->ptr)
 	{
-		mlx_destroy_display(data->ptr);
+		// mlx_destroy_display(data->ptr);
 		free(data->ptr);
 	}
 	data->ptr = NULL;
