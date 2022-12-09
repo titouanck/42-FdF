@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 13:40:48 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 15:42:19 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,22 @@ static void	fdf_map_center(t_mapctr *mapctr)
 	}
 }
 
-static void	fdf_map_relief(t_mapctr *mapctr, float scale, float deg)
+static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 {
 	long	x;
 	long	y;
 	float	in_range;
 
-	(void)deg;
 	y = -1;
 	while (++y < mapctr->height)
 	{
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			in_range = (((((float)mapctr->range - \
-				((float)mapctr->max - (float)(mapctr->map[x][y].z))) \
-				/ (float)mapctr->range) * 0.5) * scale);
-			((mapctr->map)[x][y]).x -= in_range;
-			((mapctr->map)[x][y]).y -= in_range;
+			in_range = ((((float)mapctr->range - ((float)mapctr->max - (float)(mapctr->map[x][y].z))) / (float)mapctr->range) * data->relief) * ((hypot(data->scale, data->scale)) / 2);
+			// ((mapctr->map)[x][y]).x -= in_range * ;
+			((mapctr->map)[x][y]).y -= in_range * (1 - fabs(data->iy));
+			((mapctr->map)[x][y]).x -= in_range * (1 - fabs(data->ix));
 		}
 	}
 }
@@ -96,6 +94,6 @@ void	fdf_map_fill(t_mlx *data)
 	fdf_map_fill_xy(&(data->mapctr), data->scale);
 	fdf_map_rotation(&(data->mapctr), data->deg);
 	fdf_map_inclinaison(&(data->mapctr), data->ix, data->iy);
-	fdf_map_relief(&(data->mapctr), data->scale, data->deg);
+	fdf_map_relief(&(data->mapctr),data);
 	fdf_map_center(&(data->mapctr));
 }
