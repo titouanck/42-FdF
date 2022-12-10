@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 12:09:43 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:30:56 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,27 +57,27 @@ static int	fdf_set_mapsize(int fd, t_mapctr *mapctr)
 	return (1);
 }
 
-int	fdf_fileoperations(char *file, t_mlx *mlxdata)
+int	fdf_fileoperations(char *file, t_mlx *data)
 {
 	int		fd;
 
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(ERR_OPEN), 0);
-	if (!fdf_set_mapsize(fd, &(mlxdata->mapctr)))
+	if (!fdf_set_mapsize(fd, &(data->mapctr)))
 		return (ft_printf(ERR_FILE), 0);
-	mlxdata->img.ptr = mlx_new_image(mlxdata->ptr, \
+	data->img.ptr = mlx_new_image(data->ptr, \
 			WIN_WIDTH * 2, \
 			WIN_HEIGHT * 2);
-	mlxdata->img.str = mlx_get_data_addr(mlxdata->img.ptr, \
-			&(mlxdata->img.bpp), &(mlxdata->img.size_line), \
-			&(mlxdata->img.endian));
+	data->img.str = mlx_get_data_addr(data->img.ptr, \
+			&(data->img.bpp), &(data->img.size_line), \
+			&(data->img.endian));
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (ft_printf(ERR_OPEN), 0);
-	fdf_generate_map(fd, &(mlxdata->mapctr));
+	fdf_generate_map(fd, &(data->mapctr));
 	close(fd);
-	if (!mlxdata->mapctr.map)
+	if (!data->mapctr.map)
 		return (ft_printf(ERR_ALLOC), 0);
 	return (1);
 }

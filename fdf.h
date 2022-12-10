@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 16:01:58 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:52:14 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ float		fdf_get_scale(t_mlx *data);
 int			fdf_keypressed(int key, void *param);
 int			fdf_mouseclick(int key, int x, int y, void *param);
 int			fdf_default(void *param);
-void		fdf_free_all(t_mlx *data);
+int			fdf_free_all(t_mlx *data);
 void		fdf_clear_img(t_mlx *data, t_mapctr *mapctr);
 
 #endif

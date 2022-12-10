@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:12:07 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 19:45:49 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:48:19 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	fdf_zoom(int key, t_mlx *data)
 		mlx_clear_window(data->ptr, data->win);
 		fdf_map_to_screen(data);
 	}
-	else if ((key == KV_SCROLLDOWN) && data->scale > 1)
+	else if ((key == KV_SCROLLDOWN) && data->scale > 0.05)
 	{
 		fdf_clear_img(data, &(data->mapctr));
 		(data->scale) /= 1.05;
@@ -47,7 +47,6 @@ int	fdf_mouseclick(int key, int x, int y, void *param)
 {
 	t_mlx	*data;
 
-	printf("mouse button pressed : %d\n", key);
 	data = (t_mlx *)param;
 	if (key == KV_SCROLLUP || key == KV_SCROLLDOWN)
 		fdf_zoom(key, data);

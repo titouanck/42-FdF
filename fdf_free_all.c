@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:38:31 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 19:21:13 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:52:00 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fdf_free_map(t_point **map)
 	free(map);
 }
 
-void	fdf_free_all(t_mlx *data)
+int	fdf_free_all(t_mlx *data)
 {
 	if (data->ptr && data->win)
 		mlx_destroy_window(data->ptr, data->win);
@@ -46,4 +46,5 @@ void	fdf_free_all(t_mlx *data)
 	if (data->colors)
 		free(data->colors);
 	data->colors = NULL;
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 16:27:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/09 23:55:02 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 	long	y;
 	float	in_range;
 
+	if (data->mapctr.range == 0)
+		return ;
 	y = -1;
 	while (++y < mapctr->height)
 	{

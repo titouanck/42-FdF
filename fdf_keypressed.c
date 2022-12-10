@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 19:50:14 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/10 00:59:45 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ static int	fdf_translate(int key, t_mlx *data)
 {
 	fdf_clear_img(data, &(data->mapctr));
 	if (key == KV_W || key == KV_W_M)
-		(data->mapctr.translatey) += 10;
+		(data->mapctr.translatey) += (data->scale / 5);
 	else if (key == KV_S || key == KV_S_M)
-		(data->mapctr.translatey) -= 10;
+		(data->mapctr.translatey) -= (data->scale / 5);
 	else if (key == KV_A || key == KV_A_M)
-		(data->mapctr.translatex) += 10;
+		(data->mapctr.translatex) += (data->scale / 5);
 	else if (key == KV_D || key == KV_D_M)
-		(data->mapctr.translatex) -= 10;
+		(data->mapctr.translatex) -= (data->scale / 5);
 	mlx_clear_window(data->ptr, data->win);
 	fdf_map_to_screen(data);
 	return (1);
@@ -62,9 +62,11 @@ static int	fdf_relief(int key, t_mlx *data)
 {
 	fdf_clear_img(data, &(data->mapctr));
 	if (key == KV_PLUS || key == KV_PLUS_M || key == KV_PLUS2)
-		data->relief += 0.05;
+		data->relief += 0.25;
 	else if (key == KV_MINUS || key == KV_MINUS_M || key == KV_MINUS2)
-		data->relief -= 0.05;
+		data->relief -= 0.25;
+	if (data->relief != 0 && data->relief > -0.13 && data->relief < 0.13)
+		data->relief = 0;
 	mlx_clear_window(data->ptr, data->win);
 	fdf_map_to_screen(data);
 	return (1);
@@ -74,10 +76,9 @@ int	fdf_keypressed(int key, void *param)
 {
 	t_mlx	*data;
 
-	printf("key pressed : %d\n", key);
 	data = (t_mlx *)param;
-	if (key == KV_LEFTARROW || key == 123
-		|| key == KV_RIGHTARROW || key == 124)
+	if (key == KV_LEFTARROW || key == KV_LEFTARROW_M
+			|| key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
 		fdf_rotate(key, data);
 	else if (key == KV_PLUS || key == KV_PLUS_M || key == KV_MINUS
 		|| key == KV_PLUS2 || key == KV_MINUS2  || key == KV_MINUS_M)
@@ -94,9 +95,6 @@ int	fdf_keypressed(int key, void *param)
 		fdf_default(data);
 	}
 	else if (key == KV_ESCAPE || key == KV_ESCAPE_M)
-	{
-		fdf_free_all(data);
-		exit(0);
-	}
+		exit(fdf_free_all(data));
 	return (1);
 }
