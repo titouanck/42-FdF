@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/09 12:09:11 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/11 17:24:19 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				((mapctr->map)[x++][y]).z = (float)ft_atoi(line + i);
+				((mapctr->map)[x][y]).z = (float)fdf_atoi_color(line + i, mapctr, x, y);
+				x++;
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
 			}

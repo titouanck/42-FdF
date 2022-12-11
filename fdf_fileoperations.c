@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/10 00:30:56 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/11 16:14:55 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ static int	fdf_set_mapsize__width(char *line)
 			line_width++;
 			while (line[i] && line[i] != ' ' && line[i] != '\n')
 				i++;
+			if (line[i] == '0' && line [i + 1] == 'x' && i++)
+			{
+				while (line[++i])
+					if (!(('0' <= line[i] && line[i] <= '9')
+							|| ('a' <= line[i] && line[i] <= 'f')
+							|| ('A' <= line[i] && line[i] <= 'F')))
+						break ;
+			}
 		}
 		else
 			i++;

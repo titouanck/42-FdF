@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/10 00:38:44 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/11 18:06:15 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	fdf(char *file)
 		data.win = mlx_new_window(data.ptr, \
 				WIN_WIDTH, \
 				WIN_HEIGHT, "FdF");
-		data.colors = fdf_colorgradient();
+		data.gradient = 1;
+		data.colors = fdf_colorgradient(&data);
 		if (!(data.colors))
 			return (ft_printf(ERR_ALLOC), 0);
 		fdf_colormap(&data, data.colors);
