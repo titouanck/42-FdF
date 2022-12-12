@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/11 18:07:50 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/12 16:47:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static int	fdf_rotate(int key, t_mlx *data)
 {
 	fdf_clear_img(data, &(data->mapctr));
-	if (key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
+	if (key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
 		(data->deg)++;
-	else if (key == KV_LEFTARROW || key == KV_LEFTARROW_M)
+	else if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M)
 		(data->deg)--;
 	mlx_clear_window(data->ptr, data->win);
 	fdf_map_to_screen(data);
@@ -44,15 +44,13 @@ static int	fdf_incline(int key, t_mlx *data)
 {
 	fdf_clear_img(data, &(data->mapctr));
 	if (key == KV_TOPARROW || key == KV_TOPARROW_M)
-	{
-		if (data->iy < 1)
-				(data->iy) += 0.05;
-	}
+			(data->iy) += 5;
 	else if (key == KV_BOTTOMARROW || key == KV_BOTTOMARROW_M)
-	{
-		if (data->iy > -1)
-			(data->iy) -= 0.05;
-	}
+			(data->iy) -= 5;
+	else if (key == KV_LEFTARROW || key == KV_LEFTARROW_M)
+			(data->ix) -= 5;
+	else if (key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
+			(data->ix) += 5;
 	mlx_clear_window(data->ptr, data->win);
 	fdf_map_to_screen(data);
 	return (1);
@@ -91,21 +89,24 @@ static int	fdf_changecolor(int key, t_mlx *data)
 
 int	fdf_keypressed(int key, t_mlx *data)
 {
-	if (key == KV_LEFTARROW || key == KV_LEFTARROW_M
-			|| key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
+	printf("key pressed: %d\n", key);
+	if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M
+			|| key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
 		fdf_rotate(key, data);
-	else if (key == KV_PLUS || key == KV_PLUS_M || key == KV_MINUS
+	if (key == KV_PLUS || key == KV_PLUS_M || key == KV_MINUS
 		|| key == KV_PLUS2 || key == KV_MINUS2  || key == KV_MINUS_M)
 		fdf_relief(key, data);
 	else if (key == KV_W || key == KV_W_M || key == KV_S || key == KV_S_M
 		|| key == KV_A || key == KV_A_M || key == KV_D || key == KV_D_M)
 		fdf_translate(key, data);
 	else if (key == KV_TOPARROW || key == KV_TOPARROW_M
-		|| key == KV_BOTTOMARROW|| key == KV_BOTTOMARROW_M)
+		|| key == KV_BOTTOMARROW|| key == KV_BOTTOMARROW_M
+		|| key == KV_LEFTARROW || key == KV_LEFTARROW_M
+		|| key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
 		fdf_incline(key, data);
 	else if (key == KV_C || key == KV_C_M)
 		fdf_changecolor(key, data);
-	else if (key == 15 || key == 114)
+	else if (key == KV_R || key == KV_R_M)
 	{
 		fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
 		fdf_default(data);

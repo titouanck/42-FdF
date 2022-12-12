@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:02:08 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/11 18:01:04 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/12 15:22:06 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define KV_D 100
 # define KV_D_M 2
 
-# define KV_C 8
+# define KV_C 99
 # define KV_C_M 8
 
 # define KV_LEFTARROW 65361
@@ -47,6 +47,11 @@
 # define KV_TOPARROW_M  126
 # define KV_BOTTOMARROW 65364
 # define KV_BOTTOMARROW_M 125
+
+# define KV_LEFTCHEVRON 44
+# define KV_LEFTCHEVRON_M 44
+# define KV_RIGHTCHEVRON 46
+# define KV_RIGHTCHEVRON_M 46
 
 /* Same on linux and macos */
 # define KV_SCROLLUP 4
