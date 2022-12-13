@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/12 16:47:22 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:31:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,21 @@ static int	fdf_changecolor(int key, t_mlx *data)
 	return (1);
 }
 
+static int	fdf_flat(t_mlx *data)
+{
+	fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
+	data->scale = 35;
+	data->deg = 0;
+	data->ix = 45;
+	data->iy = 45;
+	data->mapctr.translatex = 0;
+	data->mapctr.translatey = 0;
+	// data->relief = 1;
+	data->relief = hypotf(data->mapctr.width, data->mapctr.width) / 15;
+	fdf_map_to_screen(data);
+	return (1);
+}
+
 int	fdf_keypressed(int key, t_mlx *data)
 {
 	printf("key pressed: %d\n", key);
@@ -111,6 +126,8 @@ int	fdf_keypressed(int key, t_mlx *data)
 		fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
 		fdf_default(data);
 	}
+	else if (key == KV_SPACE || key == KV_SPACE_M)
+		fdf_flat(data);
 	else if (key == KV_ESCAPE || key == KV_ESCAPE_M)
 		exit(fdf_free_all(data));
 	return (1);

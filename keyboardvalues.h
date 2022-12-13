@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:02:08 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/12 15:22:06 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:26:16 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # define KV_ESCAPE 65307
 # define KV_ESCAPE_M 53
+
+# define KV_SPACE 32
+# define KV_SPACE_M 32
 
 # define KV_PLUS 61
 # define KV_PLUS_M 24
