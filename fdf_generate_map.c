@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 16:45:09 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:33:01 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 	}
 }
 
-t_point	**fdf_generate_map(int fd, t_mapctr *mapctr)
+t_point	**fdf_generate_map(int fd, t_mapctr *mapctr) 
 {
 	t_point		**map;
 	long		i;

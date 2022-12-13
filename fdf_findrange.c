@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:40:40 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/08 18:17:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:32:37 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	fdf_findrange(t_mapctr *mapctr)
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			current = ((mapctr->map)[x][y]).z;
+			current = ((mapctr->map)[x][y]).z; 
 			if (current < mapctr->min)
 				mapctr->min = current;
 			if (current > mapctr->max)
