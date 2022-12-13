@@ -6,101 +6,38 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/12 17:10:00 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 17:15:40 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fdf_map_rotation(t_mapctr *mapctr, float deg)
+/* Rotation classique -> inclinaison y -> inclinaison x -> center map */
+static void	fdf_map_rotation(t_mapctr *mapctr, t_mlx *data)
 {
 	long	x;
 	long	y;
 	float	old_x;
 
+	mapctr->xorigin = (((float)mapctr->width - 1.0) / 2) * data->scale;
+	mapctr->yorigin = (((float)mapctr->height - 1.0) / 2) * data->scale;
 	y = -1;
 	while (++y < mapctr->height)
 	{
 		x = -1;
 		while (++x < mapctr->width)
 		{
+			((mapctr->map)[x][y]).x = x * data->scale - mapctr->xorigin;
+			((mapctr->map)[x][y]).y = y * data->scale - mapctr->yorigin;
 			old_x = ((mapctr->map)[x][y]).x;
-			((mapctr->map)[x][y]).x = old_x * \
-					cos(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					(sin(deg / 57.2958) * -1) + mapctr->translatex;
-			((mapctr->map)[x][y]).y = old_x * \
-					sin(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					cos(deg / 57.2958) + mapctr->translatey;
-		}
-	}
-}
-
-static void	fdf_map_inclinaisony(t_mapctr *mapctr, float ix, float iy)
-{
-	long	x;
-	long	y;
-
-	y = -1;
-	while (++y < mapctr->height)
-	{
-		x = -1;
-		while (++x < mapctr->width)
-		{
-			((mapctr->map)[x][y]).y = ((mapctr->map)[x][y]).y * \
-					sin(iy / 57.2958) + ((mapctr->map)[x][y]).y * \
-					cos(iy / 57.2958);
-		}
-	}
-}
-
-static void	fdf_map_inclinaisonx(t_mapctr *mapctr, float ix, float iy)
-{
-	long	x;
-	long	y;
-
-	y = -1;
-	while (++y < mapctr->height)
-	{
-		x = -1;
-		while (++x < mapctr->width)
-		{
-			((mapctr->map)[x][y]).x = ((mapctr->map)[x][y]).x * \
-					sin(ix / 57.2958) + ((mapctr->map)[x][y]).x * \
-					cos(ix / 57.2958);
-		}
-	}
-}
-
-// static void	fdf_map_inclinaison(t_mapctr *mapctr, float ix, float iy)
-// {
-// 	long	x;
-// 	long	y;
-
-// 	y = -1;
-// 	while (++y < mapctr->height)
-// 	{
-// 		x = -1;
-// 		while (++x < mapctr->width)
-// 		{
-// 			((mapctr->map)[x][y]).x *= ix;
-// 			((mapctr->map)[x][y]).y *= iy;
-// 		}
-// 	}
-// }
-
-static void	fdf_map_center(t_mapctr *mapctr)
-{
-	long	x;
-	long	y;
-
-	y = -1;
-	while (++y < mapctr->height)
-	{
-		x = -1;
-		while (++x < mapctr->width)
-		{
-			((mapctr->map)[x][y]).x += WIN_WIDTH / 2;
-			((mapctr->map)[x][y]).y += WIN_HEIGHT / 2;
+			((mapctr->map)[x][y]).x = old_x * cos(data->deg / RAD) + \
+	((mapctr->map)[x][y]).y * (sin(data->deg / RAD) * -1) + mapctr->translatex;
+			((mapctr->map)[x][y]).y = old_x * sin(data->deg / RAD) + \
+	((mapctr->map)[x][y]).y * cos(data->deg / RAD) + mapctr->translatey;
+			((mapctr->map)[x][y]).y = ((mapctr->map)[x][y]).y * sin(data->iy \
+	/ RAD) + ((mapctr->map)[x][y]).y * cos(data->iy / RAD) + WIN_HEIGHT / 2;
+			((mapctr->map)[x][y]).x = ((mapctr->map)[x][y]).x * sin(data->ix \
+	/ RAD) + ((mapctr->map)[x][y]).x * cos(data->ix / RAD) + WIN_WIDTH / 2;
 		}
 	}
 }
@@ -123,28 +60,17 @@ static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 				((float)mapctr->max - (float)(mapctr->map[x][y].z))) \
 					/ (float)mapctr->range) * data->relief) * \
 						((hypot(data->scale, data->scale)) / 2);
-			((mapctr->map)[x][y]).y -= in_range * -cos(data->iy / 57.2958) + in_range * (sin(data->iy / 57.2958));
-			((mapctr->map)[x][y]).x -= in_range * -sin(data->ix / 57.2958) + in_range * cos(data->ix / 57.2958);
-			
-			/*
-			((mapctr->map)[x][y]).x = old_x * \
-					cos(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					(sin(deg / 57.2958) * -1) + mapctr->translatex;
-			((mapctr->map)[x][y]).y = old_x * \
-					sin(deg / 57.2958) + ((mapctr->map)[x][y]).y * \
-					cos(deg / 57.2958) + mapctr->translatey;
-			*/
+			((mapctr->map)[x][y]).y -= in_range * -cos(data->iy / RAD) + in_range * (sin(data->iy / RAD));
+			((mapctr->map)[x][y]).x -= in_range * -sin(data->ix / RAD) + in_range * cos(data->ix / RAD);
 		}
 	}
 }
 
 void	fdf_map_fill(t_mlx *data)
 {
-	fdf_map_fill_xy(&(data->mapctr), data->scale);
-	fdf_map_rotation(&(data->mapctr), data->deg);
-	fdf_map_inclinaisony(&(data->mapctr), data->ix, data->iy);
-	fdf_map_inclinaisonx(&(data->mapctr), data->ix, data->iy);
+	fdf_map_rotation(&(data->mapctr), data);
+	printf("fdf_map_rotation() -> OK!\n");
 	fdf_map_relief(&(data->mapctr), data);
-	fdf_map_center(&(data->mapctr));
-	printf("Data->ix : %f | Data->iy : %f\n", data->ix, data->iy);
+	printf("fdf_map_relief() -> OK!\n");
+	printf("fdf_map_fill() -> OK!\n");
 }

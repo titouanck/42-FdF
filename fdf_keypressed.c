@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 13:31:22 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 18:26:25 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,19 @@ static int	fdf_changecolor(int key, t_mlx *data)
 static int	fdf_flat(t_mlx *data)
 {
 	fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
-	data->scale = 35;
+	if (WIN_WIDTH <= WIN_HEIGHT && data->mapctr.width > data->mapctr.height)
+		data->scale = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.width);
+	else if (WIN_WIDTH <= WIN_HEIGHT)
+		data->scale = WIN_WIDTH / hypotf(data->mapctr.height, data->mapctr.height);
+	else if (WIN_WIDTH > WIN_HEIGHT && data->mapctr.width > data->mapctr.height)
+		data->scale = WIN_HEIGHT / hypotf(data->mapctr.width, data->mapctr.width);
+	else
+		data->scale = WIN_HEIGHT / hypotf(data->mapctr.height, data->mapctr.height);
 	data->deg = 0;
 	data->ix = 45;
 	data->iy = 45;
 	data->mapctr.translatex = 0;
 	data->mapctr.translatey = 0;
-	// data->relief = 1;
 	data->relief = hypotf(data->mapctr.width, data->mapctr.width) / 15;
 	fdf_map_to_screen(data);
 	return (1);
@@ -104,7 +110,6 @@ static int	fdf_flat(t_mlx *data)
 
 int	fdf_keypressed(int key, t_mlx *data)
 {
-	printf("key pressed: %d\n", key);
 	if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M
 			|| key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
 		fdf_rotate(key, data);

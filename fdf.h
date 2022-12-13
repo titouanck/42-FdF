@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/11 18:06:27 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/13 16:54:03 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # define ERR_OPEN "FdF: failed to open file.\n"
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
+
+# ifndef RAD
+#  define RAD 57.2958
+# endif
 
 # ifdef MACOS
 #  define WIN_WIDTH 1470
@@ -53,6 +57,8 @@ typedef struct s_mapctr
 	long		range;
 	long		translatex;
 	long		translatey;
+	float		xorigin;
+	float		yorigin;
 }				t_mapctr;
 
 typedef struct s_mlximg
