@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:42:04 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 03:23:15 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:33:50 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	fdf_fileoperations(char *file, t_mlx *data)
 	if (!fdf_set_mapsize(fd, &(data->mapctr)))
 		return (ft_printf(ERR_FILE), 0);
 	data->img.ptr = mlx_new_image(data->ptr, \
-			WIN_WIDTH, WIN_HEIGHT);
+			WIN_WIDTH * 2, WIN_HEIGHT * 2);
 	data->img.str = mlx_get_data_addr(data->img.ptr, \
 			&(data->img.bpp), &(data->img.size_line), \
 			&(data->img.endian));
