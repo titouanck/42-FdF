@@ -6,18 +6,17 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:59:49 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 15:48:05 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:24:31 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fdf_clear_img(t_mlx *data, t_mapctr *mapctr)
+void	fdf_clear_img(t_mlx *data)
 {
 	mlx_destroy_image(data->ptr, data->img.ptr);
 	data->img.ptr = mlx_new_image(data->ptr, \
-			WIN_WIDTH, \
-			WIN_HEIGHT);
+			WIN_WIDTH, WIN_HEIGHT);
 }
 
 // {

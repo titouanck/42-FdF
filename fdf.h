@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 16:54:03 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:18:14 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@
 #  define WIN_WIDTH 1560
 #  define WIN_HEIGHT 1400
 # endif
-
-# define MINUS 1
 
 typedef struct s_point
 {
@@ -107,11 +105,11 @@ void		fdf_map_fill(t_mlx *data);
 void		fdf_map_fill_xy(t_mapctr *mapctr, float scale);
 int			fdf_map_to_screen(t_mlx *data);
 float		fdf_get_scale(t_mlx *data);
-int			fdf_keypressed(int key, t_mlx *data);
+int			fdf_keypressed(int key, void *param);
 int			fdf_mouseclick(int key, int x, int y, void *param);
 int			fdf_default(void *param);
 int			fdf_free_all(t_mlx *data);
-void		fdf_clear_img(t_mlx *data, t_mapctr *mapctr);
+void		fdf_clear_img(t_mlx *data);
 int			fdf_atoi_color(const char *str, t_mapctr *mapctr, int x, int y);
 
 #endif

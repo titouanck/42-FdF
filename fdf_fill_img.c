@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 18:11:22 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 17:16:39 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:07:36 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,4 @@ void	fdf_fill_img(t_mlx *data)
 				fdf_bresenham(data, data->mapctr.map[x][y - 1], current);
 		}
 	}
-	printf("fdf_fill_img() -> OK!\n");
 }

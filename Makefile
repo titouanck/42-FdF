@@ -13,7 +13,7 @@ MLXPATH_MACOS = -I minilibx-macos -L minilibx-macos -lmlx -framework OpenGL -fra
 LIBS = ${LIBFTPATH} ${MLXPATH}
 LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS}
 
-CFLAGS = #-Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 # (CFLAGS : Only absent during program design)
 
 .c.o:

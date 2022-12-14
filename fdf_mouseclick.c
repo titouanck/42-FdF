@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:12:07 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/10 00:48:19 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:26:33 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	fdf_rotate(int key, t_mlx *data)
 {
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	if (key == KV_SCROLLLEFT)
 		(data->deg)++;
 	else if (key == KV_SCROLLRIGHT)
@@ -28,14 +28,14 @@ static int	fdf_zoom(int key, t_mlx *data)
 {
 	if ((key == KV_SCROLLUP) && data->scale < (WIN_WIDTH / 2))
 	{
-		fdf_clear_img(data, &(data->mapctr));
+		fdf_clear_img(data);
 		(data->scale) *= 1.05;
 		mlx_clear_window(data->ptr, data->win);
 		fdf_map_to_screen(data);
 	}
 	else if ((key == KV_SCROLLDOWN) && data->scale > 0.05)
 	{
-		fdf_clear_img(data, &(data->mapctr));
+		fdf_clear_img(data);
 		(data->scale) /= 1.05;
 		mlx_clear_window(data->ptr, data->win);
 		fdf_map_to_screen(data);
@@ -47,6 +47,8 @@ int	fdf_mouseclick(int key, int x, int y, void *param)
 {
 	t_mlx	*data;
 
+	(void)x;
+	(void)y;
 	data = (t_mlx *)param;
 	if (key == KV_SCROLLUP || key == KV_SCROLLDOWN)
 		fdf_zoom(key, data);

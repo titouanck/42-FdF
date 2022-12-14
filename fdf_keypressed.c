@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 18:26:25 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:14:50 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	fdf_rotate(int key, t_mlx *data)
 {
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	if (key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
 		(data->deg)++;
 	else if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M)
@@ -26,7 +26,7 @@ static int	fdf_rotate(int key, t_mlx *data)
 
 static int	fdf_translate(int key, t_mlx *data)
 {
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	if (key == KV_W || key == KV_W_M)
 		(data->mapctr.translatey) += (data->scale / 5);
 	else if (key == KV_S || key == KV_S_M)
@@ -42,7 +42,7 @@ static int	fdf_translate(int key, t_mlx *data)
 
 static int	fdf_incline(int key, t_mlx *data)
 {
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	if (key == KV_TOPARROW || key == KV_TOPARROW_M)
 			(data->iy) += 5;
 	else if (key == KV_BOTTOMARROW || key == KV_BOTTOMARROW_M)
@@ -58,7 +58,7 @@ static int	fdf_incline(int key, t_mlx *data)
 
 static int	fdf_relief(int key, t_mlx *data)
 {
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	if (key == KV_PLUS || key == KV_PLUS_M || key == KV_PLUS2)
 		data->relief += 0.25;
 	else if (key == KV_MINUS || key == KV_MINUS_M || key == KV_MINUS2)
@@ -70,13 +70,13 @@ static int	fdf_relief(int key, t_mlx *data)
 	return (1);
 }
 
-static int	fdf_changecolor(int key, t_mlx *data)
+static int	fdf_changecolor(t_mlx *data)
 {
 	if (data->colors)
 		free(data->colors);
 	else
 		return (0);
-	fdf_clear_img(data, &(data->mapctr));
+	fdf_clear_img(data);
 	data->colors = NULL;
 	data->gradient += 1;
 	data->colors = fdf_colorgradient(data);
@@ -89,7 +89,7 @@ static int	fdf_changecolor(int key, t_mlx *data)
 
 static int	fdf_flat(t_mlx *data)
 {
-	fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
+	fdf_clear_img(data);
 	if (WIN_WIDTH <= WIN_HEIGHT && data->mapctr.width > data->mapctr.height)
 		data->scale = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.width);
 	else if (WIN_WIDTH <= WIN_HEIGHT)
@@ -108,8 +108,11 @@ static int	fdf_flat(t_mlx *data)
 	return (1);
 }
 
-int	fdf_keypressed(int key, t_mlx *data)
+int	fdf_keypressed(int key, void *param)
 {
+	t_mlx *data;
+
+	data = (t_mlx *)param;
 	if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M
 			|| key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
 		fdf_rotate(key, data);
@@ -125,10 +128,10 @@ int	fdf_keypressed(int key, t_mlx *data)
 		|| key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
 		fdf_incline(key, data);
 	else if (key == KV_C || key == KV_C_M)
-		fdf_changecolor(key, data);
+		fdf_changecolor(data);
 	else if (key == KV_R || key == KV_R_M)
 	{
-		fdf_clear_img(((t_mlx *)data), &(((t_mlx *)data)->mapctr));
+		fdf_clear_img(data);
 		fdf_default(data);
 	}
 	else if (key == KV_SPACE || key == KV_SPACE_M)

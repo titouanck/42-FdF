@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 17:15:40 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:03:47 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,5 @@ static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 void	fdf_map_fill(t_mlx *data)
 {
 	fdf_map_rotation(&(data->mapctr), data);
-	printf("fdf_map_rotation() -> OK!\n");
 	fdf_map_relief(&(data->mapctr), data);
-	printf("fdf_map_relief() -> OK!\n");
-	printf("fdf_map_fill() -> OK!\n");
 }

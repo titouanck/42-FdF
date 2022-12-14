@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:31:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/11 18:22:20 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:11:27 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 long	fdf_colorgradient_indice(t_mlx *data, int x, int y)
 {
-	long	colors;
 	long	range;
 	long	max;
 	long	point;

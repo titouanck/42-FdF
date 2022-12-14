@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 17:13:50 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 03:01:02 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,22 @@ int	fdf(char *file)
 
 	if (!file)
 		return (0);
-	printf("START\n");
 	fdf_initialisation(&data);
-	printf("fdf_fileoperations() -> OK!\n");
 	data.ptr = mlx_init();
 	if (fdf_fileoperations(file, &data))
 	{
-		printf("fdf_fileoperations() -> OK!\n");
 		data.win = mlx_new_window(data.ptr, \
 				WIN_WIDTH, \
 				WIN_HEIGHT, "FdF");
 		data.gradient = 1;
 		data.colors = fdf_colorgradient(&data);
-		printf("fdf_colorgradient() -> OK!\n");
 		if (!(data.colors))
 			return (ft_printf(ERR_ALLOC), 0);
 		fdf_colormap(&data, data.colors);
-		printf("fdf_colormap() -> OK!\n");
 		fdf_default(&data);
-		printf("fdf_default() -> OK!\n");
 		mlx_key_hook(data.win, fdf_keypressed, &data);
 		mlx_mouse_hook(data.win, fdf_mouseclick, &data);
 		mlx_loop(data.ptr);
-		printf("END\n");
 	}
 	else
 		return (0);
