@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 14:12:07 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 13:39:02 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 14:42:00 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,12 @@ static int	fdf_rotate(int key, t_mlx *data)
 
 static int	fdf_zoom(int key, t_mlx *data)
 {
+	fdf_clear_img(data);
 	if ((key == KV_SCROLLUP) && data->scale < (WIN_WIDTH / 2))
-	{
-		fdf_clear_img(data);
 		(data->scale) *= 1.05;
-		mlx_clear_window(data->ptr, data->win);
-		fdf_map_to_screen(data);
-	}
 	else if ((key == KV_SCROLLDOWN) && data->scale > 0.05)
-	{
-		fdf_clear_img(data);
 		(data->scale) /= 1.05;
-		fdf_map_to_screen(data);
-	}
+	fdf_map_to_screen(data);
 	return (1);
 }
 

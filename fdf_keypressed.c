@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 13:38:46 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:22:33 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static int	fdf_rotate(int key, t_mlx *data)
 {
 	fdf_clear_img(data);
 	if (key == KV_RIGHTARROW || key == KV_RIGHTARROW_M)
-		(data->deg)++;
+		(data->deg) += 1.5;
 	else if (key == KV_LEFTARROW || key == KV_LEFTARROW_M)
-		(data->deg)--;
+		(data->deg) -= 1.5;
 	fdf_map_to_screen(data);
 	return (1);
 }

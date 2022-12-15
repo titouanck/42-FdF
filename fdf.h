@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 13:35:00 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 15:21:07 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ typedef struct s_mapctr
 	float		yorigin;
 }				t_mapctr;
 
+typedef struct s_colorimg
+{
+	void	*ptr;
+	char	*str;
+	int		bpp;
+	int		size_line;
+	int		endian;
+}			t_colorimg;
+
 typedef struct s_mlximg
 {
 	void	*ptr;
@@ -74,6 +83,7 @@ typedef struct s_mlx
 	void		*win;
 	t_mapctr	mapctr;
 	t_mlximg	img;
+	t_colorimg	colorimg;
 	int			*colors;
 	int			nbrcolors;
 	int			gradient;
