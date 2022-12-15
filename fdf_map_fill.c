@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 03:03:47 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 13:12:58 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static void	fdf_map_rotation(t_mapctr *mapctr, t_mlx *data)
 			((mapctr->map)[x][y]).y = y * data->scale - mapctr->yorigin;
 			old_x = ((mapctr->map)[x][y]).x;
 			((mapctr->map)[x][y]).x = old_x * cos(data->deg / RAD) + \
-	((mapctr->map)[x][y]).y * (sin(data->deg / RAD) * -1) + mapctr->translatex;
+	((mapctr->map)[x][y]).y * (sin(data->deg / RAD) * -1);
 			((mapctr->map)[x][y]).y = old_x * sin(data->deg / RAD) + \
-	((mapctr->map)[x][y]).y * cos(data->deg / RAD) + mapctr->translatey;
+	((mapctr->map)[x][y]).y * cos(data->deg / RAD);
 			((mapctr->map)[x][y]).y = ((mapctr->map)[x][y]).y * sin(data->iy \
-	/ RAD) + ((mapctr->map)[x][y]).y * cos(data->iy / RAD) + WIN_HEIGHT / 2;
+	/ RAD) + ((mapctr->map)[x][y]).y * cos(data->iy / RAD) + WIN_HEIGHT / 2  + mapctr->translatey;
 			((mapctr->map)[x][y]).x = ((mapctr->map)[x][y]).x * sin(data->ix \
-	/ RAD) + ((mapctr->map)[x][y]).x * cos(data->ix / RAD) + WIN_WIDTH / 2;
+	/ RAD) + ((mapctr->map)[x][y]).x * cos(data->ix / RAD) + WIN_WIDTH / 2 + mapctr->translatex;
 		}
 	}
 }

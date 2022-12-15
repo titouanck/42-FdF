@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 03:14:50 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/14 12:51:11 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	fdf_keypressed(int key, void *param)
 {
 	t_mlx *data;
 
+	printf("Key pressed: %d\n", key);
 	data = (t_mlx *)param;
 	if (key == KV_LEFTCHEVRON || key == KV_LEFTCHEVRON_M
 			|| key == KV_RIGHTCHEVRON || key == KV_RIGHTCHEVRON_M)
