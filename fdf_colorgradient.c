@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 23:31:17 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 15:51:24 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:26:12 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	*fdf_colorgradient_1(t_mlx *data)
 		i++;
 	}
 	data->nbrcolors = 255;
+	// tab[127] = PURPLE;
 	return (tab);
 }
 
@@ -58,6 +59,7 @@ int	*fdf_colorgradient_2(t_mlx *data)
 		i++;
 	}
 	data->nbrcolors = 255;
+	// tab[127] = PURPLE;
 	return (tab);
 }
 
@@ -83,6 +85,7 @@ int	*fdf_colorgradient_3(t_mlx *data)
 		i++;
 	}
 	data->nbrcolors = 255;
+	// tab[127] = PURPLE;
 	return (tab);
 }
 
@@ -108,6 +111,7 @@ int	*fdf_colorgradient_4(t_mlx *data)
 		i++;
 	}
 	data->nbrcolors = 255;
+	// tab[127] = PURPLE;
 	return (tab);
 }
 

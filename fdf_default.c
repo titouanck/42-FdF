@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:58:18 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 14:01:22 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:59:50 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,14 @@ int	fdf_default(void *param)
 	t_mlx	*data;
 
 	data = (t_mlx *)param;
-	data->scale = 35;
+	if (WIN_WIDTH <= WIN_HEIGHT && data->mapctr.width > data->mapctr.height)
+		data->scale = WIN_WIDTH / hypotf(data->mapctr.width, data->mapctr.width);
+	else if (WIN_WIDTH <= WIN_HEIGHT)
+		data->scale = WIN_WIDTH / hypotf(data->mapctr.height, data->mapctr.height);
+	else if (WIN_WIDTH > WIN_HEIGHT && data->mapctr.width > data->mapctr.height)
+		data->scale = WIN_HEIGHT / hypotf(data->mapctr.width, data->mapctr.width);
+	else
+		data->scale = WIN_HEIGHT / hypotf(data->mapctr.height, data->mapctr.height);
 	data->deg = 45;
 	data->iy = 80;
 	data->mapctr.translatex = 0;

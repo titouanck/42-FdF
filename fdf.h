@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 16:34:56 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:24:26 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 # ifndef MACOS
 #  define WIN_WIDTH 1560
-#  define WIN_HEIGHT 1400
+#  define WIN_HEIGHT 1325
 # endif
 
 typedef struct s_point

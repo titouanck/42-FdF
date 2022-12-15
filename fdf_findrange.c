@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/01 22:40:40 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 18:32:37 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 17:23:02 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ void	fdf_findrange(t_mapctr *mapctr)
 			if (current > mapctr->max)
 				mapctr->max = current;
 		}
+	}
+	if (mapctr->min < 0)
+	{
+		if ((-(mapctr->min)) > mapctr->max)
+			mapctr->max = (-(mapctr->min));
+		else 
+			mapctr->min = (-(mapctr->max));
 	}
 	mapctr->range = (long) mapctr->max - (long) mapctr->min;
 }
