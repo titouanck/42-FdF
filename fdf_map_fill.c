@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 13:12:58 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:32:30 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	fdf_map_rotation(t_mapctr *mapctr, t_mlx *data)
 	long	x;
 	long	y;
 	float	old_x;
+	t_point	*cur;
 
 	mapctr->xorigin = (((float)mapctr->width - 1.0) / 2) * data->scale;
 	mapctr->yorigin = (((float)mapctr->height - 1.0) / 2) * data->scale;
@@ -27,17 +28,16 @@ static void	fdf_map_rotation(t_mapctr *mapctr, t_mlx *data)
 		x = -1;
 		while (++x < mapctr->width)
 		{
-			((mapctr->map)[x][y]).x = x * data->scale - mapctr->xorigin;
-			((mapctr->map)[x][y]).y = y * data->scale - mapctr->yorigin;
-			old_x = ((mapctr->map)[x][y]).x;
-			((mapctr->map)[x][y]).x = old_x * cos(data->deg / RAD) + \
-	((mapctr->map)[x][y]).y * (sin(data->deg / RAD) * -1);
-			((mapctr->map)[x][y]).y = old_x * sin(data->deg / RAD) + \
-	((mapctr->map)[x][y]).y * cos(data->deg / RAD);
-			((mapctr->map)[x][y]).y = ((mapctr->map)[x][y]).y * sin(data->iy \
-	/ RAD) + ((mapctr->map)[x][y]).y * cos(data->iy / RAD) + WIN_HEIGHT / 2  + mapctr->translatey;
-			((mapctr->map)[x][y]).x = ((mapctr->map)[x][y]).x * sin(data->ix \
-	/ RAD) + ((mapctr->map)[x][y]).x * cos(data->ix / RAD) + WIN_WIDTH / 2 + mapctr->translatex;
+			cur = &((mapctr->map)[x][y]);
+			cur->x = x * data->scale - mapctr->xorigin;
+			cur->y = y * data->scale - mapctr->yorigin;
+			old_x = cur->x;
+			cur->x = old_x * data->deg_cos + cur->y * (-(data->deg_sin));
+			cur->y = old_x * data->deg_sin + cur->y * data->deg_cos;
+			cur->y = cur->y * data->iy_sin + cur->y * data->iy_cos + \
+					WIN_HEIGHT / 2 + mapctr->translatey;
+			cur->x = cur->x * 1.41421356237 + WIN_WIDTH / 2 + \
+					mapctr->translatex;
 		}
 	}
 }
@@ -60,14 +60,17 @@ static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 				((float)mapctr->max - (float)(mapctr->map[x][y].z))) \
 					/ (float)mapctr->range) * data->relief) * \
 						((hypot(data->scale, data->scale)) / 2);
-			((mapctr->map)[x][y]).y -= in_range * -cos(data->iy / RAD) + in_range * (sin(data->iy / RAD));
-			((mapctr->map)[x][y]).x -= in_range * -sin(data->ix / RAD) + in_range * cos(data->ix / RAD);
+			((mapctr->map)[x][y]).y -= in_range * (-(data->iy_cos)) + in_range * (data->iy_sin);
 		}
 	}
 }
 
 void	fdf_map_fill(t_mlx *data)
 {
+	data->deg_sin = sin(data->deg / RAD);
+	data->deg_cos = cos(data->deg / RAD);
+	data->iy_sin = sin(data->iy / RAD);
+	data->iy_cos = cos(data->iy / RAD);
 	fdf_map_rotation(&(data->mapctr), data);
 	fdf_map_relief(&(data->mapctr), data);
 }

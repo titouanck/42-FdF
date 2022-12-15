@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 03:18:14 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 13:35:00 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,13 @@ typedef struct s_mlx
 	int			nbrcolors;
 	int			gradient;
 	float		scale;
-	float		deg;
-	float		ix;
-	float		iy;
 	float		relief;
+	float		deg;
+	float		deg_sin;
+	float		deg_cos;
+	float		iy;
+	float		iy_sin;
+	float		iy_cos;
 }				t_mlx;
 
 /* Generic utility functions */
