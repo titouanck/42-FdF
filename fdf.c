@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 14:59:01 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/15 16:22:38 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	fdf_initialisation(t_mlx *data)
 	data->img.ptr = NULL;
 	data->img.str = NULL;
 	data->colors = NULL;
+	data->gradient = 1;
 }
 
 int	fdf(char *file)
@@ -33,21 +34,19 @@ int	fdf(char *file)
 	if (fdf_fileoperations(file, &data))
 	{
 		data.win = mlx_new_window(data.ptr, \
-				WIN_WIDTH, \
-				WIN_HEIGHT, "FdF");
-		data.gradient = 1;
+				WIN_WIDTH, WIN_HEIGHT, "FdF");
 		data.colors = fdf_colorgradient(&data);
 		if (!(data.colors))
-			return (ft_printf(ERR_ALLOC), 0);
+			return (ft_printf(ERR_ALLOC), fdf_free_all(&data), 0);
 		fdf_colormap(&data, data.colors);
 		fdf_default(&data);
 		mlx_hook(data.win, 02, (1L<<0), fdf_keypressed, &data);
 		mlx_mouse_hook(data.win, fdf_mouseclick, &data);
 		mlx_loop(data.ptr);
+		return (1);
 	}
-	else
-		return (0);
-	return (1);
+	fdf_free_all(&data);
+	return (0);
 }
 
 int	main(int argc, char **argv)
