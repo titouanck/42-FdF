@@ -45,7 +45,7 @@ all:	${EXEC}
 re:	fclean all
 
 norminette:
-		norminette *.c *.h
+		norminette srcs/*.c srcs/*.h
 
 # ADAPTATION FOR USAGE ON MACOS
 LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS}
