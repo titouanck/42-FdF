@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/30 18:56:56 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/13 18:33:01 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:23:10 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
+static void	fdf_map_fill_z(t_mapctr *m, int fd)
 {
 	long	x;
 	long	y;
@@ -20,16 +20,16 @@ static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 	char	*line;
 
 	y = -1;
-	while (++y < mapctr->height)
+	while (++y < m->height)
 	{
 		line = get_next_line(fd);
 		i = 0;
 		x = 0;
-		while (x < mapctr->width)
+		while (x < m->width)
 		{
 			if (line[i] != ' ' && line[i] != '\n')
 			{
-				((mapctr->map)[x][y]).z = (float)fdf_atoi_color(line + i, mapctr, x, y);
+				((m->map)[x][y]).z = (float)fdf_atoi_color(line + i, m, x, y);
 				x++;
 				while (line[i] && line[i] != ' ' && line[i] != '\n')
 					i++;
@@ -41,7 +41,7 @@ static void	fdf_map_fill_z(t_mapctr *mapctr, int fd)
 	}
 }
 
-t_point	**fdf_generate_map(int fd, t_mapctr *mapctr) 
+t_point	**fdf_generate_map(int fd, t_mapctr *mapctr)
 {
 	t_point		**map;
 	long		i;

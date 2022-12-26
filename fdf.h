@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 17:24:26 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:16:56 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define ERR_OPEN "FdF: failed to open file.\n"
 # define ERR_FILE "FdF: map error.\n"
 # define ERR_ALLOC "FdF: failed to allocate memory.\n"
-# define ERR_MLX "FdF: mlx failed to allocate memory.\n"
+# define ERR_LIBMLX "FdF: mlx failed to allocate memory.\n"
 
 # ifndef RAD
 #  define RAD 57.2958
@@ -88,6 +88,16 @@ typedef struct s_mlx
 	float		iy_cos;
 }				t_mlx;
 
+typedef struct	s_bresenham
+{
+	float	ratio;
+	t_point	current;
+	float	diff;
+	float	i;
+	t_color	scl;
+	t_color	ecl;
+}			t_bresenham;
+
 /* Generic utility functions */
 void		ft_colored_window(int w, int h);
 
@@ -115,5 +125,7 @@ int			fdf_default(void *param);
 int			fdf_free_all(t_mlx *data);
 void		fdf_clear_img(t_mlx *data);
 int			fdf_atoi_color(const char *str, t_mapctr *mapctr, int x, int y);
-
+void		fdf_bresenham_if(t_mlx *d, t_point s, t_point e, float ratio);
+void		fdf_bresenham_else(t_mlx *d, t_point s, t_point e, float ratio);
+void		fdf_call_put_pixel(t_mlx *data, t_point current);
 #endif

@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 00:44:51 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/11 16:27:05 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 15:13:49 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int fdf_atoi_getcolor(const char *str)
+static int	fdf_atoi_getcolor(const char *str)
 {
 	size_t	i;
 	int		color;
