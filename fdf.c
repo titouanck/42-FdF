@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 15:20:16 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:23:13 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ static void	fdf_initialisation(t_mlx *data)
 	data->gradient = 1;
 	data->mapctr.min = 2147483647;
 	data->mapctr.max = -2147483648;
+}
+
+static int	fdf_quit(void *param)
+{
+	exit(fdf_free_all((t_mlx *)param));
 }
 
 int	fdf(char *file)
@@ -43,6 +48,7 @@ int	fdf(char *file)
 		fdf_colormap(&data, data.colors);
 		fdf_default(&data);
 		mlx_hook(data.win, 02, (1L << 0), fdf_keypressed, &data);
+		mlx_hook(data.win, 17, 0, fdf_quit, &data);
 		mlx_mouse_hook(data.win, fdf_mouseclick, &data);
 		mlx_loop(data.ptr);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 15:16:56 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:28:04 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_mlx
 	float		iy_cos;
 }				t_mlx;
 
-typedef struct	s_bresenham
+typedef struct s_bresenham
 {
 	float	ratio;
 	t_point	current;
@@ -121,7 +121,9 @@ int			fdf_map_to_screen(t_mlx *data);
 float		fdf_get_scale(t_mlx *data);
 int			fdf_keypressed(int key, void *param);
 int			fdf_mouseclick(int key, int x, int y, void *param);
+int			fdf_flat(t_mlx *data);
 int			fdf_default(void *param);
+int			fdf_changecolor(t_mlx *data);
 int			fdf_free_all(t_mlx *data);
 void		fdf_clear_img(t_mlx *data);
 int			fdf_atoi_color(const char *str, t_mapctr *mapctr, int x, int y);

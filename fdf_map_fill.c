@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 11:57:05 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/15 13:32:30 by tchevrie         ###   ########.fr       */
+/*   Updated: 2022/12/26 16:24:55 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ static void	fdf_map_relief(t_mapctr *mapctr, t_mlx *data)
 				((float)mapctr->max - (float)(mapctr->map[x][y].z))) \
 					/ (float)mapctr->range) * data->relief) * \
 						((hypot(data->scale, data->scale)) / 2);
-			((mapctr->map)[x][y]).y -= in_range * (-(data->iy_cos)) + in_range * (data->iy_sin);
+			((mapctr->map)[x][y]).y -= in_range * (-(data->iy_cos)) \
+	+ in_range * (data->iy_sin);
 		}
 	}
 }
