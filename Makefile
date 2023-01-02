@@ -48,7 +48,7 @@ norminette:
 		norminette srcs/*.c srcs/*.h
 
 # ADAPTATION FOR USAGE ON MACOS
-LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS}
+LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS} ${INCPATH}
 
 macos:	 
 		clear
@@ -59,4 +59,4 @@ macos:
 
 macos_re: fclean macos
 
-.PHONY: all clean fclean re run macos macos_run norminette
+.PHONY: all clean fclean re norminette
