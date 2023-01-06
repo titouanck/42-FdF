@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2023/01/06 06:43:55 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:38:18 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # endif
 
 # ifndef MACOS
-#  define WIN_WIDTH 1560
+#  define WIN_WIDTH 2560
 #  define WIN_HEIGHT 1325
 # endif
 
@@ -101,7 +101,6 @@ typedef struct s_bresenham
 int			fdf_fileoperations(char *file, t_mlx *data);
 t_point		**fdf_generate_map(int fd, t_mapctr *mapctr);
 void		fdf_free_map(t_point **map);
-void		fdf_print_map(t_mapctr mapctr);
 void		fdf_findrange(t_mapctr *mapctr);
 void		fdf_fill_img(t_mlx *data);
 int			*fdf_colorgradient(t_mlx *data);

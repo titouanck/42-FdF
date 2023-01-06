@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:35:59 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 16:23:13 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:44:58 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	fdf(char *file)
 		return (0);
 	fdf_initialisation(&data);
 	data.ptr = mlx_init();
+	if (!(data.ptr))
+		return (ft_printf(ERR_ALLOC), 0);
 	if (fdf_fileoperations(file, &data))
 	{
 		data.win = mlx_new_window(data.ptr, \
