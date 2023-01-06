@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 23:44:30 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 16:24:31 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 07:02:36 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static int	fdf_translate(int key, t_mlx *data)
 {
 	fdf_clear_img(data);
 	if (key == KV_W || key == KV_W_M)
-		(data->mapctr.translatey) += (data->scale / 5);
-	else if (key == KV_S || key == KV_S_M)
 		(data->mapctr.translatey) -= (data->scale / 5);
+	else if (key == KV_S || key == KV_S_M)
+		(data->mapctr.translatey) += (data->scale / 5);
 	else if (key == KV_A || key == KV_A_M)
-		(data->mapctr.translatex) += (data->scale / 5);
-	else if (key == KV_D || key == KV_D_M)
 		(data->mapctr.translatex) -= (data->scale / 5);
+	else if (key == KV_D || key == KV_D_M)
+		(data->mapctr.translatex) += (data->scale / 5);
 	fdf_map_to_screen(data);
 	return (1);
 }
@@ -45,6 +45,8 @@ static int	fdf_incline(int key, t_mlx *data)
 			(data->iy) += 5;
 	else if (key == KV_BOTTOMARROW || key == KV_BOTTOMARROW_M)
 			(data->iy) -= 5;
+	else if (key == KV_P || key == KV_P_M)
+		return (fdf_parallel(data));
 	fdf_map_to_screen(data);
 	return (1);
 }
@@ -77,7 +79,8 @@ int	fdf_keypressed(int key, void *param)
 		|| key == KV_A || key == KV_A_M || key == KV_D || key == KV_D_M)
 		fdf_translate(key, data);
 	else if (key == KV_TOPARROW || key == KV_TOPARROW_M
-		|| key == KV_BOTTOMARROW || key == KV_BOTTOMARROW_M)
+		|| key == KV_BOTTOMARROW || key == KV_BOTTOMARROW_M
+		|| key == KV_P || key == KV_P_M)
 		fdf_incline(key, data);
 	else if (key == KV_C || key == KV_C_M)
 		fdf_changecolor(data);

@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:36:11 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 16:27:38 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 06:52:52 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	fdf_strings_to_screen(t_mlx *data, size_t w, size_t h)
 	mlx_string_put(data->ptr, data->win, w, 10 + h * 6, data->colors[127], \
 	"Isometric projection : R");
 	mlx_string_put(data->ptr, data->win, w, 10 + h * 7, data->colors[127], \
+	"Parallel projection : P");
+	mlx_string_put(data->ptr, data->win, w, 10 + h * 8, data->colors[127], \
 	"View from above : SPACE");
 }
 

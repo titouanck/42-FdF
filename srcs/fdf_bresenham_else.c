@@ -6,13 +6,13 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/26 15:11:57 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 15:14:13 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 06:35:22 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	fdf_bresenham_else_while_color(t_point s, \
+static int	fdf_bresenham_else_while_color(t_point s, \
 		t_point e, t_bresenham vr)
 {
 	if (s.y < e.y)
@@ -27,6 +27,7 @@ static void	fdf_bresenham_else_while_color(t_point s, \
 	((vr.scl.g * ((vr.current.y - e.y) / vr.diff)) + (vr.ecl.g * (1 - \
 	((vr.current.y - e.y) / vr.diff)))), ((vr.scl.b * ((vr.current.y - e.y) \
 	/ vr.diff)) + (vr.ecl.b * (1 - ((vr.current.y - e.y) / vr.diff)))));
+	return (vr.current.color);
 }
 
 static void	fdf_bresenham_else_while(t_mlx *data, \
@@ -34,7 +35,7 @@ static void	fdf_bresenham_else_while(t_mlx *data, \
 {
 	while ((int)(vr.current.y + 0.5) != (int)(e.y + 0.5))
 	{
-		fdf_bresenham_else_while_color(s, e, vr);
+		vr.current.color = fdf_bresenham_else_while_color(s, e, vr);
 		if (vr.current.y < e.y)
 			vr.current.y += 1;
 		else

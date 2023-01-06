@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 16:20:33 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/26 16:28:04 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 06:43:55 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,6 @@ typedef struct s_bresenham
 	t_color	ecl;
 }			t_bresenham;
 
-/* Generic utility functions */
-void		ft_colored_window(int w, int h);
-
-/* FdF utility functions */
 int			fdf_fileoperations(char *file, t_mlx *data);
 t_point		**fdf_generate_map(int fd, t_mapctr *mapctr);
 void		fdf_free_map(t_point **map);
@@ -114,9 +110,8 @@ void		fdf_colormap(t_mlx *data, int *colors);
 void		fdf_empty_colormap(t_mlx *data, int *colors);
 int			fdf_put_pixel(t_mlx *data, int color, char *pixel);
 void		fdf_bresenham(t_mlx *data, t_point start, t_point end);
-void		fdf_clearlines(t_mlx *data, t_point start, t_point end);
+int			fdf_parallel(t_mlx *dt);
 void		fdf_map_fill(t_mlx *data);
-void		fdf_map_fill_xy(t_mapctr *mapctr, float scale);
 int			fdf_map_to_screen(t_mlx *data);
 float		fdf_get_scale(t_mlx *data);
 int			fdf_keypressed(int key, void *param);

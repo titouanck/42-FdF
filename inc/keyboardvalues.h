@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 16:02:08 by tchevrie          #+#    #+#             */
-/*   Updated: 2022/12/14 12:51:35 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 06:46:33 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 
 # define KV_R 114
 # define KV_R_M 15
+
+# define KV_P 35
+# define KV_P_M 35
 
 # define KV_W 119
 # define KV_W_M 13

@@ -18,17 +18,17 @@ MLXPATH_MACOS = -I libs/minilibx-macos -L libs/minilibx-macos -lmlx -framework O
 LIBS = ${LIBFTPATH} ${MLXPATH} ${INCPATH}
 
 # COMPILATION
-EXEC = FdF
-CC = gcc
+NAME = FdF
+CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 .c.o:
 		${CC} ${CFLAGS} ${LIBS} -c $< -o ${<:.c=.o}
 
-${EXEC}:	${OBJS} 
+${NAME}:	${OBJS} 
 		+$(MAKE) -C libs/minilibx
 		+$(MAKE) -C libs/libft
-		gcc -o ${EXEC} ${CFLAGS} ${OBJS} ${LIBS}
+		gcc -o ${NAME} ${CFLAGS} ${OBJS} ${LIBS}
 
 clean:	
 		rm -f ${OBJS} 
@@ -38,14 +38,16 @@ fclean:	clean;
 		+$(MAKE) -C libs/libft fclean
 		+$(MAKE) -C libs/minilibx clean
 		+$(MAKE) -C libs/minilibx-macos clean
-		rm -f ${EXEC}
+		rm -f ${NAME}
 
-all:	${EXEC}
+all:	${NAME}
+
+bonus:	${NAME}
 
 re:	fclean all
 
 norminette:
-		norminette srcs/*.c srcs/*.h
+		norminette srcs/
 
 # ADAPTATION FOR USAGE ON MACOS
 LIBS_MACOS = -D MACOS=1 ${LIBFTPATH} ${MLXPATH_MACOS} ${INCPATH}
@@ -54,7 +56,7 @@ macos:
 		clear
 		+$(MAKE) -C libs/minilibx-macos
 		+$(MAKE) -C libs/libft
-		gcc  -o ${EXEC} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
+		gcc  -o ${NAME} ${CFLAGS} ${SRCS} ${LIBS_MACOS}
 		rm -f ${OBJS} 
 
 macos_re: fclean macos
