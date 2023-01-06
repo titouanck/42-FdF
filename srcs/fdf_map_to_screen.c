@@ -6,7 +6,7 @@
 /*   By: tchevrie <tchevrie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:36:11 by tchevrie          #+#    #+#             */
-/*   Updated: 2023/01/06 06:52:52 by tchevrie         ###   ########.fr       */
+/*   Updated: 2023/01/06 10:17:53 by tchevrie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,39 +34,13 @@ static void	fdf_colorset_screen(t_mlx *data)
 	}
 }
 
-static void	fdf_strings_to_screen(t_mlx *data, size_t w, size_t h)
-{
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 1, data->colors[127], \
-	"Zoom : Mouse Up / Mouse Down");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 2, data->colors[127], \
-	"Rotation & Inclinaison : keyboard arrows");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 3, data->colors[127], \
-	"Translation : W A S D");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 4, data->colors[127], \
-	"Change color : C");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 6, data->colors[127], \
-	"Isometric projection : R");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 7, data->colors[127], \
-	"Parallel projection : P");
-	mlx_string_put(data->ptr, data->win, w, 10 + h * 8, data->colors[127], \
-	"View from above : SPACE");
-}
-
 int	fdf_map_to_screen(t_mlx *data)
 {
-	size_t	w;
-	size_t	h;
-
 	fdf_map_fill(data);
 	fdf_fill_img(data);
 	fdf_colorset_screen(data);
 	mlx_clear_window(data->ptr, data->win);
 	mlx_put_image_to_window(data->ptr, \
 			data->win, data->img.ptr, 0, 0);
-	if (WIN_WIDTH < 1000 || WIN_HEIGHT < 500)
-		return (1);
-	w = 27;
-	h = 25;
-	fdf_strings_to_screen(data, w, h);
 	return (1);
 }

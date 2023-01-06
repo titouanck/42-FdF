@@ -7,15 +7,16 @@ SRCS =	srcs/fdf_atoi_color.c		srcs/fdf_colorgradient.c		srcs/fdf_findrange.c		sr
 		srcs/fdf_clear_img.c		srcs/fdf_fill_img.c				srcs/fdf_map_fill.c
 
 OBJS = ${SRCS:.c=.o}
+DEPS = ${SRCS:.c=.d}
 
-# INCLUDES - inc
-INCPATH = -I inc/
+# INCLUDES
+INCPATH = -I inc/ -I libs/libft -I libs/minilibx -I libs/minilibx-macos
 
-# LIBRAIRIES- libs
-LIBFTPATH = -I libs/libft -L libs/libft -lft
-MLXPATH = -I libs/minilibx -L libs/minilibx -lmlx -lXext -lX11 -lm
-MLXPATH_MACOS = -I libs/minilibx-macos -L libs/minilibx-macos -lmlx -framework OpenGL -framework AppKit -lm
-LIBS = ${LIBFTPATH} ${MLXPATH} ${INCPATH}
+# LIBRAIRIES
+LIBFTPATH = -L libs/libft -lft
+MLXPATH = -L libs/minilibx -lmlx -lXext -lX11
+MLXPATH_MACOS = -L libs/minilibx-macos -lmlx -framework OpenGL -framework AppKit -lm
+LIBS = ${LIBFTPATH} ${MLXPATH} ${INCPATH} -lm
 
 # COMPILATION
 NAME = FdF
@@ -23,7 +24,7 @@ CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
 .c.o:
-		${CC} ${CFLAGS} ${LIBS} -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} ${INCPATH} -MMD -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS} 
 		+$(MAKE) -C libs/minilibx
@@ -31,7 +32,7 @@ ${NAME}:	${OBJS}
 		gcc -o ${NAME} ${CFLAGS} ${OBJS} ${LIBS}
 
 clean:	
-		rm -f ${OBJS} 
+		rm -f ${OBJS} ${DEPS}
 		+$(MAKE) -C libs/libft clean
 
 fclean:	clean;
@@ -60,5 +61,7 @@ macos:
 		rm -f ${OBJS} 
 
 macos_re: fclean macos
+
+-include ${DEPS}
 
 .PHONY: all clean fclean re norminette
